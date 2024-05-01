@@ -45,8 +45,8 @@
       border-bottom: 1px solid $BORDERS;
     }
 
-    .link-icon {
-      background-color: $GREY !important;
+    .small-icon {
+      background-color: $GREY;
       transition: background-color 250ms;
     }
 
@@ -57,8 +57,8 @@
     &.selected,
     &:hover {
       color: $PURPLE;
-      .link-icon {
-        background-color: $PURPLE !important;
+      .small-icon {
+        background-color: $PURPLE;
       }
     }
     cursor: pointer;

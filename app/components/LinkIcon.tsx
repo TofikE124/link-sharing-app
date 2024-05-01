@@ -5,16 +5,17 @@ interface Props {
   color?: string | null;
 }
 
-const LinkIcon = ({ color, iconURL }: Props) => {
+const SmallIcon = ({ color, iconURL }: Props) => {
+  const backgroundColor = color == null ? "" : color ?? "#fff";
   return (
     <div
-      className="link-icon w-5 h-5"
+      className="small-icon w-5 h-5"
       style={{
         maskImage: `url(${iconURL})`,
-        backgroundColor: color ?? "#fff",
+        backgroundColor,
       }}
     />
   );
 };
 
-export default LinkIcon;
+export default SmallIcon;

@@ -1,0 +1,20 @@
+@use "../abstracts/variables" as *;
+
+.div-container {
+  padding-inline: 2em;
+  margin-inline: auto;
+  max-width: 80rem;
+}
+
+.bg-pure-white {
+  background-color: $WHITE;
+}
+
+.bg-light-grey {
+  background-color: $LIGHT-GREY;
+}
+
+.border-borders {
+  border-color: $BORDERS;
+  border-style: solid;
+}

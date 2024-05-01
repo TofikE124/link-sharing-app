@@ -2,7 +2,7 @@ import React from "react";
 import { linkMap, LinkType } from "../constants/links";
 import { link } from "fs";
 import RightArrow from "./svg/RightArrow";
-import LinkIcon from "./LinkIcon";
+import SmallIcon from "./LinkIcon";
 
 interface Props {
   linkType: LinkType;
@@ -20,7 +20,7 @@ const PreviewLink = ({ linkType }: Props) => {
         borderColor: Link.borderColor ?? "transparent",
       }}
     >
-      <LinkIcon iconURL={Link.iconURL} color={Link.maskColor}></LinkIcon>
+      <SmallIcon iconURL={Link.iconURL} color={Link.maskColor}></SmallIcon>
       <p className="body-m mr-auto" style={{ color: Link.color ?? "#fff" }}>
         {Link.label}
       </p>

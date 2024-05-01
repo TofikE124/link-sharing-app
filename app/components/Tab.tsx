@@ -1,24 +1,35 @@
-import Image from "next/image";
-import React, { ReactNode } from "react";
-import LinkIcon from "./svg/LinkIcon";
+"use client";
+import Link from "next/link";
+import { ReactNode } from "react";
+import SmallIcon from "./LinkIcon";
+import { usePathname } from "next/navigation";
+import path from "path";
 
 interface Props {
   children: ReactNode;
-  active?: boolean;
+  href: string;
+  iconURL: string;
 }
 
-const Tab = ({ children, active }: Props) => {
+const Tab = ({ children, href, iconURL }: Props) => {
+  const pathname = usePathname();
+  const isActive = pathname.split("?")[0].startsWith(href);
   return (
-    <div className={`tab flex items-center gap-2 ${active && "active"}`}>
+    <Link
+      href={href}
+      className={`tab flex items-center no-underline gap-2 ${
+        isActive && "active"
+      }`}
+    >
       <div>
         <div className="link-icon-container h-[16px]">
-          <LinkIcon />
+          <SmallIcon color={null} iconURL={iconURL}></SmallIcon>
         </div>
       </div>
-      <div className="">
+      <div className="sm:hidden">
         <p>{children}</p>
       </div>
-    </div>
+    </Link>
   );
 };
 

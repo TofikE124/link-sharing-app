@@ -8,27 +8,28 @@
   border: 0;
   border-radius: 0.5rem;
   outline: 0;
-  padding: 0.75rem 1.7rem;
+  padding: 0.75rem;
   width: fit-content;
   cursor: pointer;
   transition: background-color 250ms ease-out, color 250ms ease-out;
 
-  .link-icon-container svg path {
-    transition: fill 250ms ease-out;
+  .small-icon {
+    background-color: $GREY;
+    transition: background-color 250ms ease-out;
   }
 
   &:hover {
     color: $PURPLE;
-    .link-icon-container svg path {
-      fill: $PURPLE;
+    .small-icon {
+      background-color: $PURPLE;
     }
   }
 
   &.active {
     background: $LIGHT-PURPLE;
     color: $PURPLE;
-    .link-icon-container svg path {
-      fill: $PURPLE;
+    .small-icon {
+      background-color: $PURPLE;
     }
   }
 }

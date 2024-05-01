@@ -1,6 +1,6 @@
 import React from "react";
 import { linkMap, LinkType } from "../../constants/links";
-import LinkIcon from "../LinkIcon";
+import SmallIcon from "../LinkIcon";
 
 interface Props {
   linkType: LinkType;
@@ -17,7 +17,7 @@ const MenuLink = ({ linkType, selected }: Props) => {
         selected ? "selected" : ""
       }`}
     >
-      <LinkIcon iconURL={Link.iconURL}></LinkIcon>
+      <SmallIcon iconURL={Link.iconURL}></SmallIcon>
       <p className="body-m">
         {Link.label} {selected ? "(Selected)" : ""}
       </p>

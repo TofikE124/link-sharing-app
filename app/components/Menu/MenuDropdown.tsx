@@ -8,7 +8,11 @@ const MenuDropdown = () => {
   const [active, setActive] = useState(false);
 
   return (
-    <div className={`menu-dropdown relative ${active ? "active" : ""}`}>
+    <div
+      className={`menu-dropdown relative max-w-[480px] ${
+        active ? "active" : ""
+      }`}
+    >
       <div
         onClick={() => setActive(!active)}
         className="flex gap-3 p-4 items-center relative z-20"

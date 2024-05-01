@@ -1,3 +1,4 @@
+@use "../abstracts/variables" as *;
 /*====================
         Resets
 ======================*/
@@ -23,10 +24,15 @@ ul {
   margin: 0;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 /* Set up the body */
 body {
   min-height: 100vh;
   line-height: 1.5;
+  background-color: $LIGHT-GREY;
 }
 
 /* Make images and pictures easier to work with */
