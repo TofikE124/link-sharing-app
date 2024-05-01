@@ -1,0 +1,66 @@
+@use "../abstracts/variables" as *;
+
+.menu-dropdown {
+  border-radius: 0.5rem;
+  background-color: $WHITE;
+  border: 1px solid $BORDERS;
+  cursor: pointer;
+  transition: border-color 200ms, box-shadow 250ms;
+
+  .arrow {
+    rotate: 180deg;
+    transition: rotate 200ms;
+  }
+
+  .menu-list {
+    translate: 0 -20px;
+    opacity: 0;
+    transition: translate 200ms, opacity 200ms, visibility 200ms;
+    visibility: hidden;
+  }
+
+  &:hover {
+    border: 1px solid $PURPLE;
+    box-shadow: 0px 0px 32px 0px rgba(99, 60, 255, 0.25);
+  }
+
+  &.active .menu-list {
+    translate: 0;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &.active .arrow {
+    rotate: 0deg;
+  }
+}
+
+.menu-list {
+  border: 1px solid var(--Borders, #d9d9d9);
+  background: var(--White, #fff);
+  box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, 0.1);
+  .menu-link {
+    padding: 0.75rem 0;
+    &:not(:last-of-type) {
+      border-bottom: 1px solid $BORDERS;
+    }
+
+    .link-icon {
+      background-color: $GREY !important;
+      transition: background-color 250ms;
+    }
+
+    p {
+      transition: color 250ms;
+    }
+
+    &.selected,
+    &:hover {
+      color: $PURPLE;
+      .link-icon {
+        background-color: $PURPLE !important;
+      }
+    }
+    cursor: pointer;
+  }
+}

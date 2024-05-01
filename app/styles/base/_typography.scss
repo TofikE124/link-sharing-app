@@ -1,3 +1,5 @@
+@use "../abstracts/variables" as *;
+
 .heading-m {
   font-size: 2rem; //32px
   font-weight: 700;
@@ -15,4 +17,16 @@
 .body-s {
   font-size: 0.75rem; //16px
   font-weight: 400;
+}
+
+.text-dark-grey {
+  color: $DARK-GREY;
+}
+
+.text-purple {
+  color: $PURPLE;
+}
+
+.text-red {
+  color: $RED;
 }

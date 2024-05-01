@@ -1,0 +1,13 @@
+.link-icon {
+  position: relative;
+  mask-mode: alpha;
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    inset: 0;
+    mix-blend-mode: multiply;
+  }
+}

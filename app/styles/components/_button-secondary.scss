@@ -1,0 +1,24 @@
+@use "../abstracts/variables" as *;
+@use "../base/typography" as *;
+
+.button-secondary {
+  @apply heading-s;
+  width: 100%;
+  padding: 0.5rem;
+  color: $PURPLE;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  border: 1px solid $PURPLE;
+  cursor: pointer;
+
+  transition: background-color 250ms ease-out, opacity 200ms;
+
+  &:hover,
+  &.active {
+    background-color: $LIGHT-PURPLE;
+  }
+
+  &:disabled {
+    opacity: 0.25;
+  }
+}

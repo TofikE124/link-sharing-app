@@ -1,0 +1,40 @@
+@use "../abstracts/variables" as *;
+
+.text-field-container {
+  background-color: $WHITE;
+  border: 1px solid $BORDERS;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  transition: border-color 250ms ease-out, box-shadow 250ms ease-out;
+
+  .text-field::placeholder {
+    opacity: 0.5;
+  }
+
+  .error-message-container {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 250ms ease-in;
+  }
+
+  &:hover {
+    border-color: $PURPLE;
+    box-shadow: 0px 0px 32px 0px rgba(99, 60, 255, 0.25);
+  }
+
+  &.error {
+    border-color: $RED;
+
+    .text-field {
+      color: $RED;
+      &::placeholder {
+        color: $RED;
+        opacity: 0.5;
+      }
+    }
+    .error-message-container {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
