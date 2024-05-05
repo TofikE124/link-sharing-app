@@ -1,0 +1,10 @@
+.image-upload {
+  .image-upload-background-image {
+    transition: scale 300ms ease-out;
+  }
+  &:hover {
+    .image-upload-background-image {
+      scale: 1.15;
+    }
+  }
+}

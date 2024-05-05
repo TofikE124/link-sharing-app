@@ -1,26 +1,24 @@
-import React from "react";
-import { linkMap, LinkType } from "../constants/links";
-import { link } from "fs";
+import { platformMap, PlatformType } from "../constants/platforms";
+import SmallIcon from "./SmallIcon";
 import RightArrow from "./svg/RightArrow";
-import SmallIcon from "./LinkIcon";
 
 interface Props {
-  linkType: LinkType;
+  linkType: PlatformType;
 }
 
 const PreviewLink = ({ linkType }: Props) => {
-  const Link = linkMap[linkType];
+  const Link = platformMap[linkType];
   if (!Link) return;
 
   return (
     <div
-      className={`preview-link w-[237px] border-[1px] border-solid flex gap-2 items-center p-4 rounded-lg cursor-pointer`}
+      className={`preview-link w-[237px] h-[44px] border-[1px] border-solid flex gap-2 items-center p-4 rounded-lg cursor-pointer`}
       style={{
         backgroundColor: Link.backgroundColor,
         borderColor: Link.borderColor ?? "transparent",
       }}
     >
-      <SmallIcon iconURL={Link.iconURL} color={Link.maskColor}></SmallIcon>
+      <SmallIcon icon={Link.icon} color={Link.maskColor || "#fff"}></SmallIcon>
       <p className="body-m mr-auto" style={{ color: Link.color ?? "#fff" }}>
         {Link.label}
       </p>

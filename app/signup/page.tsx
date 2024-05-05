@@ -14,9 +14,9 @@ const page = () => {
           />
         </Link>
         <div className="bg-pure-white p-10 mt-14 rounded-2xl w-[450px]">
-          <h2 className="heading-m text-dark-grey">Login</h2>
+          <h2 className="heading-m text-dark-grey">Create account</h2>
           <p className="body-m text-grey mt-2">
-            Add your details below to get back into the app
+            Let’s get you started sharing your links!{" "}
           </p>
 
           <form className="mt-10 flex flex-col gap-6">
@@ -28,20 +28,31 @@ const page = () => {
               ></TextField>
             </div>
             <div className="flex flex-col gap-1">
-              <p className="body-s text-dark-grey">Password</p>
+              <p className="body-s text-dark-grey">Create Password</p>
               <TextField
                 iconType={iconType.PASSWORD}
                 placeholder="Enter your password"
               ></TextField>
             </div>
-            <button className="button-primary">Login</button>
+            <div className="flex flex-col gap-1">
+              <p className="body-s text-dark-grey">Confirm Password</p>
+              <TextField
+                iconType={iconType.PASSWORD}
+                placeholder="Enter your password"
+              ></TextField>
+            </div>
+            <p className="body-s text-grey">
+              Password must contain at least 8 characters
+            </p>
+            <button className="button-primary">Create new account</button>
             <p className="body-m text-grey text-center">
-              Don't have an account?
+              Already have an account?
               <Link
                 className="text-purple no-underline hover:underline sm:block"
-                href="/signup"
+                href="/login"
               >
-                Create account
+                {" "}
+                Login
               </Link>
             </p>
           </form>

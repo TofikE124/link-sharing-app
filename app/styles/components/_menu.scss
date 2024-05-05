@@ -12,11 +12,11 @@
     transition: rotate 200ms;
   }
 
-  .menu-list {
+  .menu-list-container {
     translate: 0 -20px;
     opacity: 0;
-    transition: translate 200ms, opacity 200ms, visibility 200ms;
     visibility: hidden;
+    transition: translate 200ms, opacity 200ms, visibility 200ms;
   }
 
   &:hover {
@@ -24,7 +24,7 @@
     box-shadow: 0px 0px 32px 0px rgba(99, 60, 255, 0.25);
   }
 
-  &.active .menu-list {
+  &.active .menu-list-container {
     translate: 0;
     opacity: 1;
     visibility: visible;

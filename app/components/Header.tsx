@@ -1,18 +1,19 @@
 import React from "react";
 import Tab from "./Tab";
 import Link from "next/link";
-import SmallIcon from "./LinkIcon";
+import SmallIcon from "./SmallIcon";
+import { iconMap, iconType } from "../constants/icons";
 
 const tabs = [
   {
     label: "Links",
-    href: "/",
-    iconURL: "/assets/images/icon-links-header.svg",
+    href: "/home/links",
+    icon: iconMap[iconType.LINKS_HEADER],
   },
   {
     label: "Profile Details",
-    href: "/profile-details",
-    iconURL: "/assets/images/icon-profile-details-header.svg",
+    href: "/home/profile-details",
+    icon: iconMap[iconType.PROFILE_DETAILS_HEADER],
   },
 ];
 
@@ -31,18 +32,15 @@ const Header = () => {
       </Link>
       <div className="flex items-center gap-4">
         {tabs.map((tab) => (
-          <Tab href={tab.href} iconURL={tab.iconURL}>
+          <Tab href={tab.href} icon={tab.icon} key={tab.label}>
             {tab.label}
           </Tab>
         ))}
       </div>
       <button className="button-secondary sm:py-3 sm:px-4 sm:w-fit lgmd:w-[114px]">
-        <span className="sm:hidden">Preiview</span>
+        <span className="sm:hidden">Preview</span>
         <div className="lgmd:hidden">
-          <SmallIcon
-            iconURL="/assets/images/icon-preview-header.svg"
-            color="#633CFF"
-          />
+          <SmallIcon icon={iconMap[iconType.PREVIEW_HEADER]} color="#633CFF" />
         </div>
       </button>
     </div>

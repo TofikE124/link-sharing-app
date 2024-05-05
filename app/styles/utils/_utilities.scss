@@ -14,7 +14,17 @@
   background-color: $LIGHT-GREY;
 }
 
+.bg-light-purple {
+  background-color: $LIGHT-PURPLE;
+}
+
 .border-borders {
   border-color: $BORDERS;
   border-style: solid;
+}
+
+.centered-axis-x {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
 }

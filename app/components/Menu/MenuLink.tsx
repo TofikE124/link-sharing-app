@@ -1,25 +1,32 @@
-import React from "react";
-import { linkMap, LinkType } from "../../constants/links";
-import SmallIcon from "../LinkIcon";
+import React, { useContext } from "react";
+import { platformMap, PlatformType } from "../../constants/platforms";
+import SmallIcon from "../SmallIcon";
+import { MenuContext } from "./MenuDropdown";
 
 interface Props {
-  linkType: LinkType;
-  selected: boolean;
+  platformType: PlatformType;
 }
 
-const MenuLink = ({ linkType, selected }: Props) => {
-  const Link = linkMap[linkType];
-  if (!Link) return;
+const MenuLink = ({ platformType }: Props) => {
+  const platform = platformMap[platformType];
+  if (!platform) return;
+
+  const { menuItemClick, selectedPlatformType } = useContext(MenuContext);
+
+  const selected = selectedPlatformType == platformType;
 
   return (
     <div
+      onClick={() => {
+        menuItemClick(platformType);
+      }}
       className={`menu-link flex items-center gap-3 ${
         selected ? "selected" : ""
       }`}
     >
-      <SmallIcon iconURL={Link.iconURL}></SmallIcon>
+      <SmallIcon icon={platform.icon} color="currentcolor"></SmallIcon>
       <p className="body-m">
-        {Link.label} {selected ? "(Selected)" : ""}
+        {platform.label} {selected ? "(Selected)" : ""}
       </p>
     </div>
   );
