@@ -3,6 +3,8 @@ import Tab from "./Tab";
 import Link from "next/link";
 import SmallIcon from "./SmallIcon";
 import { iconMap, iconType } from "../constants/icons";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/authOptions/authOptions";
 
 const tabs = [
   {
@@ -17,7 +19,7 @@ const tabs = [
   },
 ];
 
-const Header = () => {
+const Header = async () => {
   return (
     <div className="bg-pure-white p-6 rounded-xl flex justify-between items-center">
       <Link href="/" className="cursor-pointer">

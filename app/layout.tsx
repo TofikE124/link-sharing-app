@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Instrument_Sans, Inter } from "next/font/google";
 import "./main.scss";
+import SessionProvider from "./components/SessionProvider";
 
 const instrumentSans = Instrument_Sans({
   weight: ["400", "600", "700"],
@@ -19,7 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={instrumentSans.className}>{children}</body>
+      <body className={instrumentSans.className}>
+        <SessionProvider>{children}</SessionProvider>
+      </body>
     </html>
   );
 }

@@ -6,6 +6,7 @@ import PreviewLink from "@/app/components/PreviewLink";
 
 const IllustrationPhoneMockUp = () => {
   const { links } = useContext(LinkEditingContext);
+
   return (
     <div className="mdsm:hidden bg-pure-white grow-[1] rounded-xl flex items-center justify-center min-w-[308px] h-[850px]">
       <div className="relative h-fit w-fit">
