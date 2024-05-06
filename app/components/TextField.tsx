@@ -1,46 +1,69 @@
 import Image from "next/image";
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, forwardRef, InputHTMLAttributes } from "react";
 import SmallIcon from "./SmallIcon";
 import { iconMap, iconType } from "../constants/icons";
 
-interface Props {
-  defaultValue?: string;
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
+  name: string;
+  value?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
   placeholder?: string;
+  disabled?: boolean;
+  required?: boolean;
   errorMessage?: string;
   iconType?: iconType;
-  onChange?: (value: string) => void;
 }
 
-const TextField = ({
-  placeholder,
-  errorMessage,
-  iconType,
-  defaultValue,
-  onChange = () => {},
-}: Props) => {
-  const Icon = iconType ? iconMap[iconType] : null;
+const TextField = forwardRef<HTMLInputElement, Props>(
+  (
+    {
+      name,
+      value,
+      onChange,
+      onBlur,
+      placeholder,
+      disabled,
+      required,
+      type,
+      className,
+      errorMessage,
+      iconType,
+      ...rest
+    }: Props,
+    ref
+  ) => {
+    const Icon = iconType ? iconMap[iconType] : null;
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    onChange(event.target.value);
-  };
+    return (
+      <div
+        className={`text-field-container ${
+          errorMessage ? "error" : ""
+        } flex items-center gap-3 w-full lgmd:max-w-[450px] sm:max-w-[300px]`}
+      >
+        <div>
+          {Icon ? <SmallIcon icon={Icon} color="#737373"></SmallIcon> : null}
+        </div>
 
-  return (
-    <div className="text-field-container flex items-center gap-3 w-full lgmd:max-w-[450px] sm:max-w-[300px]">
-      <div>
-        {Icon ? <SmallIcon icon={Icon} color="#737373"></SmallIcon> : null}
+        <input
+          className="body-m text-dark-grey text-field w-full border-0 outline-none mr-auto"
+          name={name}
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
+          placeholder={placeholder}
+          disabled={disabled}
+          required={required}
+          type={type}
+          ref={ref}
+          {...rest}
+        ></input>
+        <div className="error-message-container w-[250px]">
+          <p className="error-message text-red body-m">{errorMessage}</p>
+        </div>
       </div>
-
-      <input
-        placeholder={placeholder}
-        className="body-m text-dark-grey text-field w-full border-0 outline-none mr-auto"
-        onChange={handleChange}
-        defaultValue={defaultValue}
-      ></input>
-      <div className="error-message-container">
-        <p className="error-message text-red">{errorMessage}</p>
-      </div>
-    </div>
-  );
-};
+    );
+  }
+);
 
 export default TextField;

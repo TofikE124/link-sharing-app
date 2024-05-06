@@ -4,11 +4,12 @@ import ImageUpload from "./ImageUpload";
 
 interface Props {
   onUpload?: (url: string) => void;
+  imageURL?: string;
 }
 
-const CloudinaryUpload = ({ onUpload }: Props) => {
+const CloudinaryUpload = ({ onUpload = () => {}, imageURL }: Props) => {
   const handleSuccess = (result: any, close: () => void) => {
-    console.log(result.info.url);
+    onUpload(result.info.url || "");
     close();
   };
 
@@ -31,9 +32,14 @@ const CloudinaryUpload = ({ onUpload }: Props) => {
         ],
         multiple: false,
         cropping: true,
+        maxImageWidth: 1024,
+        maxImageHeight: 1024,
+        clientAllowedFormats: ["png", "jpg"],
       }}
     >
-      {({ open }) => <ImageUpload onClick={() => open()}></ImageUpload>}
+      {({ open }) => (
+        <ImageUpload onClick={() => open()} imageURL={imageURL}></ImageUpload>
+      )}
     </CldUploadWidget>
   );
 };
