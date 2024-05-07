@@ -36,7 +36,7 @@ model User {
   platforms     Platform[]      @relation("userPlatforms")
   Session       Session[]
   Account       Account?
-  // Optional for WebAuthn support
+// Optional for WebAuthn support
   Authenticator Authenticator[]
 
   createdAt DateTime @default(now())

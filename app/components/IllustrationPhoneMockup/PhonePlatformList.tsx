@@ -1,16 +1,24 @@
 "use client";
 import PreviewLink from "@/app/components/PreviewLink";
-import React, { useContext } from "react";
-import { PlatformEditingContext } from "../../home/links/PlatformEditingContextProvider";
+import { ViewProfileContext } from "@/app/preview/[uniqueLink]/ViewProfileContextProvider";
+import { useContext } from "react";
 import PhonePlatformListLoading from "./PhonePlatformListLoading";
+import { PlatformEditingContext } from "@/app/home/links/PlatformEditingContextProvider";
 
 const PhonePlatforms = () => {
-  const { platforms, isLoading } = useContext(PlatformEditingContext);
+  const platformEditingContext = useContext(PlatformEditingContext);
+  const viewProfileContext = useContext(ViewProfileContext);
+
+  const context =
+    Object.keys(platformEditingContext).length != 0
+      ? platformEditingContext
+      : viewProfileContext;
+  const { platforms, isLoading } = context ?? {};
   if (isLoading) return <PhonePlatformListLoading></PhonePlatformListLoading>;
 
   return (
     <div className="mt-[56px] flex flex-col gap-5">
-      {platforms.slice(0, 5).map((platform) => (
+      {(platforms || []).slice(0, 5).map((platform) => (
         <PreviewLink
           platformType={platform.type}
           platformLink={platform.link}

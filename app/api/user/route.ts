@@ -35,22 +35,39 @@ export async function PATCH(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
-  const session = await getServerSession();
   const email = request.headers.get("email") || "";
-  if (!session?.user)
-    return NextResponse.json(
-      { error: "You are not authroized to do that." },
-      { status: 401 }
-    );
-  const user = await prisma.user.findUnique({
-    where: { email },
-    include: { platforms: true },
-  });
-  if (!user)
-    return NextResponse.json(
-      { error: "You are not authroized to do that" },
-      { status: 401 }
-    );
+  const uniqueLink = request.headers.get("uniqueLink") || "";
 
-  return NextResponse.json(user);
+  if (uniqueLink) {
+    const user = await prisma.user.findUnique({
+      where: { uniqueLink },
+      select: {
+        contactEmail: true,
+        platforms: true,
+        firstName: true,
+        lastName: true,
+        image: true,
+      },
+    });
+    if (!user)
+      return NextResponse.json({ error: "User not found " }, { status: 404 });
+    return NextResponse.json(user);
+  }
+
+  if (email) {
+    const session = await getServerSession();
+
+    if (!session?.user)
+      return NextResponse.json(
+        { error: "You are not authroized to do that." },
+        { status: 401 }
+      );
+    const user = await prisma.user.findUnique({
+      where: { email },
+      include: { platforms: true },
+    });
+    if (!user)
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    return NextResponse.json(user);
+  }
 }

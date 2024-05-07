@@ -3,10 +3,16 @@ import React, { useContext } from "react";
 import Image from "next/image";
 import { ProfileEditingContext } from "../../home/profile-details/ProfileEditingContextProvider";
 import PhoneProfileDetailsLoading from "./PhoneProfileDetailsLoading";
+import { ViewProfileContext } from "@/app/preview/[uniqueLink]/ViewProfileContextProvider";
 
 const PhoneProfileDetails = () => {
+  const profileEditingContext = useContext(ProfileEditingContext);
+  const viewProfileContext = useContext(ViewProfileContext);
+  const context = Object.keys(profileEditingContext).length
+    ? profileEditingContext
+    : viewProfileContext;
   const { firstName, lastName, contactEmail, profileImageURL, isLoading } =
-    useContext(ProfileEditingContext);
+    context ?? {};
 
   if (isLoading)
     return <PhoneProfileDetailsLoading></PhoneProfileDetailsLoading>;
