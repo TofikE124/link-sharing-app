@@ -1,13 +1,12 @@
 "use client";
 import { iconMap, iconType } from "@/app/constants/icons";
-import React from "react";
-import SmallIcon from "../SmallIcon";
 import { usePathname, useRouter } from "next/navigation";
-import path from "path";
+import SmallIcon from "../SmallIcon";
 
 const PreviewButton = () => {
   const router = useRouter();
   const pathname = usePathname();
+
   const onPreviewClick = () => {
     router.push(`/preview?returnURL=${pathname}`);
   };

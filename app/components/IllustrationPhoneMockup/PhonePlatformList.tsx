@@ -1,3 +1,4 @@
+"use client";
 import PreviewLink from "@/app/components/PreviewLink";
 import React, { useContext } from "react";
 import { PlatformEditingContext } from "../../home/links/PlatformEditingContextProvider";

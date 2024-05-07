@@ -9,7 +9,6 @@ import { createContext, PropsWithChildren, useEffect, useState } from "react";
 import {
   Control,
   FieldErrors,
-  FieldValue,
   FieldValues,
   useForm,
   UseFormClearErrors,
@@ -75,7 +74,7 @@ const ProfileEditingContextProvider = ({ children }: PropsWithChildren) => {
     if (status == "authenticated") {
       setLoading(true);
       axios
-        .get(`/api/user/${session?.user?.email}`)
+        .get("/api/user", { headers: { email: session?.user?.email } })
         .then((response: any) => {
           const user = response.data as User;
           if (user.firstName) setValue("firstName", user.firstName);
@@ -108,9 +107,13 @@ const ProfileEditingContextProvider = ({ children }: PropsWithChildren) => {
       });
       return;
     }
-    const savePromise = axios.patch(`/api/user/${session?.user?.email}`, {
-      ...data,
-    });
+    const savePromise = axios.patch(
+      "/api/user",
+      {
+        ...data,
+      },
+      { headers: { email: session?.user?.email } }
+    );
 
     await toast.promise(savePromise, {
       loading: "Saving...",

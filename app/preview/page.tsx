@@ -1,4 +1,3 @@
-"use client";
 import PlatformEditingContextProvider from "../home/links/PlatformEditingContextProvider";
 import ProfileEditingContextProvider from "../home/profile-details/ProfileEditingContextProvider";
 import PreviewHeader from "./PreviewHeader";

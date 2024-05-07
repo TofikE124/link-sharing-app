@@ -1,19 +1,11 @@
 import { EditProfileSchema } from "@/app/validationSchemas/Schemas";
 import prisma from "@/prisma/client";
-import { profile } from "console";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
-interface Props {
-  params: { email: string };
-}
-
-export async function PATCH(
-  request: NextRequest,
-  { params: { email } }: Props
-) {
+export async function PATCH(request: NextRequest) {
   const body = await request.json();
-
+  const email = request.headers.get("email") || "";
   const validation = EditProfileSchema.safeParse(body);
 
   if (!validation.success)
@@ -42,8 +34,9 @@ export async function PATCH(
   return NextResponse.json(newUser, { status: 201 });
 }
 
-export async function GET(request: NextRequest, { params: { email } }: Props) {
+export async function GET(request: NextRequest) {
   const session = await getServerSession();
+  const email = request.headers.get("email") || "";
   if (!session?.user)
     return NextResponse.json(
       { error: "You are not authroized to do that." },
