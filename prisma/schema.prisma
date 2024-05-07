@@ -30,9 +30,10 @@ model User {
   contactEmail  String?
   username      String?         @unique
   email         String?         @unique
+  uniqueLink    String          @unique @default(cuid())
   emailVerified DateTime?
-  image         String?
-  platforms     Platform[] // Relationship to the Platform model
+  image         String?         @default("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/2048px-Windows_10_Default_Profile_Picture.svg.png")
+  platforms     Platform[]      @relation("userPlatforms")
   Session       Session[]
   Account       Account?
   // Optional for WebAuthn support
@@ -47,7 +48,7 @@ model Platform {
   type      PlatformType // Enum representing the platform type
   link      String // Link to the user's profile on the platform
   index     Int?
-  user      User         @relation(fields: [userId], references: [id])
+  user      User         @relation("userPlatforms", fields: [userId], references: [id], onDelete: Cascade)
   userId    String // Foreign key to the User model
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt
@@ -67,7 +68,7 @@ model Account {
   id_token                 String? @db.Text
   session_state            String?
   refresh_token_expires_in Int?
-  user                     User?   @relation(fields: [userId], references: [id])
+  user                     User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -8,7 +8,10 @@ const nextConfig = {
     ];
   },
   images: {
-    remotePatterns: [{ protocol: "http", hostname: "res.cloudinary.com" }],
+    remotePatterns: [
+      { protocol: "http", hostname: "res.cloudinary.com" },
+      { protocol: "https", hostname: "upload.wikimedia.org" },
+    ],
   },
 };
 
