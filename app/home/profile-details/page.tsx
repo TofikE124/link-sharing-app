@@ -60,7 +60,7 @@ const page = () => {
     setCanSave(false);
     setTimeout(() => {
       setCanSave(true);
-    }, 5000);
+    }, 3000);
   };
 
   return (

@@ -7,6 +7,9 @@ const nextConfig = {
       { source: "/home", destination: "/home/links", permanent: true },
     ];
   },
+  images: {
+    remotePatterns: [{ protocol: "http", hostname: "res.cloudinary.com" }],
+  },
 };
 
 export default nextConfig;

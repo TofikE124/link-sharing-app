@@ -39,7 +39,7 @@ const TextField = forwardRef<HTMLInputElement, Props>(
       <div
         className={`text-field-container ${
           errorMessage ? "error" : ""
-        } flex items-center gap-3 w-full lgmd:max-w-[450px] sm:max-w-[300px]`}
+        } flex items-center gap-3 w-full`}
       >
         <div>
           {Icon ? <SmallIcon icon={Icon} color="#737373"></SmallIcon> : null}
@@ -58,7 +58,7 @@ const TextField = forwardRef<HTMLInputElement, Props>(
           ref={ref}
           {...rest}
         ></input>
-        <div className="error-message-container w-[250px]">
+        <div className="error-message-container max-w-[250px] whitespace-nowrap">
           <p className="error-message text-red body-m">{errorMessage}</p>
         </div>
       </div>

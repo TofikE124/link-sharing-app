@@ -1,11 +1,12 @@
 "use client";
 import { iconMap, iconType } from "@/app/constants/icons";
-import { Link } from "@/app/constants/links";
-import { platformMap, PlatformType } from "@/app/constants/platforms";
+import { Platform } from "@/app/constants/platforms";
+import { platformMap } from "@/app/constants/platforms";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import DropdownToggle from "./DropdownToggle";
 import MenuList from "./MenuList";
-import { LinkEditingContext } from "@/app/home/links/LinkEditingContextProvider";
+import { PlatformEditingContext } from "@/app/home/links/PlatformEditingContextProvider";
+import { PlatformType } from "@prisma/client";
 
 interface MenuContextType {
   menuItemClick: (platformType: PlatformType) => void;
@@ -18,15 +19,14 @@ export const MenuContext = createContext<MenuContextType>(
 
 interface Props {
   onChange: (platformType: PlatformType) => void;
-  link: Link;
+  link: Platform;
 }
 
 const MenuDropdown = ({ onChange, link }: Props) => {
   const [active, setActive] = useState(false);
 
-  const selectedPlatform = platformMap[link.platformType];
-
-  const { takenPlatforms } = useContext(LinkEditingContext);
+  const selectedPlatform = platformMap[link.type];
+  const { avilablePlatforms } = useContext(PlatformEditingContext);
 
   const menuRef = useRef(null);
 
@@ -57,12 +57,6 @@ const MenuDropdown = ({ onChange, link }: Props) => {
     ? selectedPlatform.label
     : "Platform";
 
-  const platforms = Object.values(PlatformType).filter(
-    (platformType) =>
-      !takenPlatforms.includes(platformType) ||
-      platformType == link.platformType
-  );
-
   return (
     <div
       ref={menuRef}
@@ -75,9 +69,9 @@ const MenuDropdown = ({ onChange, link }: Props) => {
       ></DropdownToggle>
       <div className="menu-list-container absolute top-full mt-2 left-0 right-0 z-50">
         <MenuContext.Provider
-          value={{ menuItemClick, selectedPlatformType: link.platformType }}
+          value={{ menuItemClick, selectedPlatformType: link.type }}
         >
-          <MenuList platforms={platforms}></MenuList>
+          <MenuList platforms={[link.type, ...avilablePlatforms]}></MenuList>
         </MenuContext.Provider>
       </div>
     </div>

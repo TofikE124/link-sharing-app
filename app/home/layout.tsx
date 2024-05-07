@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import Header from "../components/Header";
 import IllustrationPhoneMockUp from "./IllustrationPhoneMockup";
-import LinkEditingContextProvider from "./links/LinkEditingContextProvider";
+import PlatformEditingContextProvider from "./links/PlatformEditingContextProvider";
 import ProfileEditingContextProvider from "./profile-details/ProfileEditingContextProvider";
 
 interface Props {
@@ -14,12 +14,12 @@ const layout = ({ children }: Props) => {
       <Header></Header>
       <div className="mt-6 h-full">
         <div className="flex gap-6 h-full w-full">
-          <LinkEditingContextProvider>
+          <PlatformEditingContextProvider>
             <ProfileEditingContextProvider>
               <IllustrationPhoneMockUp></IllustrationPhoneMockUp>
               <div className="grow-[2]">{children}</div>
             </ProfileEditingContextProvider>
-          </LinkEditingContextProvider>
+          </PlatformEditingContextProvider>
         </div>
       </div>
     </div>

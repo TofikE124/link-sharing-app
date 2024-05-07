@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
-import { platformMap, PlatformType } from "../../constants/platforms";
+import { platformMap } from "../../constants/platforms";
 import SmallIcon from "../SmallIcon";
 import { MenuContext } from "./MenuDropdown";
+import { PlatformType } from "@prisma/client";
 
 interface Props {
   platformType: PlatformType;

@@ -49,7 +49,10 @@ export async function GET(request: NextRequest, { params: { email } }: Props) {
       { error: "You are not authroized to do that." },
       { status: 401 }
     );
-  const user = await prisma.user.findUnique({ where: { email } });
+  const user = await prisma.user.findUnique({
+    where: { email },
+    include: { platforms: true },
+  });
   if (!user)
     return NextResponse.json(
       { error: "You are not authroized to do that" },

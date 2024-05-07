@@ -1,13 +1,13 @@
-import { Link } from "@/app/constants/links";
+import { Platform } from "@/app/constants/platforms";
 import { Reorder } from "framer-motion";
-import LinkEditorItem from "./LinkEditorItem";
+import PlatformEditorItem from "./PlatformEditorItem";
 
 interface Props {
-  links: Link[];
-  handleReorder: (newLinks: Link[]) => void;
+  links: Platform[];
+  handleReorder: (newLinks: Platform[]) => void;
 }
 
-const LinksList = ({ links, handleReorder }: Props) => {
+const PlatformsList = ({ links, handleReorder }: Props) => {
   return (
     <Reorder.Group
       values={links}
@@ -19,15 +19,15 @@ const LinksList = ({ links, handleReorder }: Props) => {
     "
       >
         {links.map((link, index) => (
-          <LinkEditorItem
+          <PlatformEditorItem
             link={link}
             index={index}
             key={link.id}
-          ></LinkEditorItem>
+          ></PlatformEditorItem>
         ))}
       </div>
     </Reorder.Group>
   );
 };
 
-export default LinksList;
+export default PlatformsList;

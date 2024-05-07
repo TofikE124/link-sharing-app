@@ -1,6 +1,7 @@
+import { PlatformType } from "@prisma/client";
 import { icon, iconMap, iconType } from "./icons";
 
-export type Platform = {
+export type PreviewPlatform = {
   label: string;
   backgroundColor: string;
   icon: icon;
@@ -10,23 +11,13 @@ export type Platform = {
   arrowColor?: string;
 };
 
-export enum PlatformType {
-  GITHUB = "Github",
-  FRONTEND_MENTOR = "Frontend Mentor",
-  TWITTER = "Twitter",
-  LINKEDIN = "LinkedIn",
-  YOUTUBE = "YouTube",
-  FACEBOOK = "Facebook",
-  TWITCH = "Twitch",
-  // DEVTO = "Dev.to",
-  CODEWARS = "Codewars",
-  FREECODECAMP = "freeCodeCamp",
-  GITLAB = "Gitlab",
-  HASHNODE = "Hashnode",
-  STACK_OVERFLOW = "Stack Overflow",
+export interface Platform {
+  id: string;
+  type: PlatformType;
+  link: string;
 }
 
-export const platformMap: Record<PlatformType, Platform> = {
+export const platformMap: Record<PlatformType, PreviewPlatform> = {
   [PlatformType.GITHUB]: {
     label: "Github",
     backgroundColor: "#1A1A1A",

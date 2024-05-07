@@ -1,9 +1,6 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/authOptions/authOptions";
+"use client";
+import { PropsWithChildren } from "react";
 
-const page = async () => {
-  const session = await getServerSession(authOptions);
-  return <div className="m-8">{session?.user?.name || "NULL"}</div>;
-};
+const page = ({ children }: PropsWithChildren) => {};
 
 export default page;

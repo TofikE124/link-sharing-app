@@ -1,13 +1,13 @@
 import { Reorder, useDragControls } from "framer-motion";
-import LinkEditor from "./LinkEditor";
-import { Link } from "@/app/constants/links";
+import PlatformEditor from "./PlatformEditor";
+import { Platform } from "@/app/constants/platforms";
 
 interface Props {
-  link: Link;
+  link: Platform;
   index: number;
 }
 
-const LinkEditorItem = ({ link, index }: Props) => {
+const PlatformEditorItem = ({ link, index }: Props) => {
   const controls = useDragControls();
   return (
     <Reorder.Item
@@ -16,14 +16,14 @@ const LinkEditorItem = ({ link, index }: Props) => {
       dragListener={false}
       dragControls={controls}
     >
-      <LinkEditor
+      <PlatformEditor
         controls={controls}
         link={link}
         index={index}
         key={link.id}
-      ></LinkEditor>
+      ></PlatformEditor>
     </Reorder.Item>
   );
 };
 
-export default LinkEditorItem;
+export default PlatformEditorItem;

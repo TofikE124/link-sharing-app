@@ -1,4 +1,5 @@
-import { platformMap, PlatformType } from "../constants/platforms";
+import { PlatformType } from "@prisma/client";
+import { platformMap } from "../constants/platforms";
 import SmallIcon from "./SmallIcon";
 import RightArrow from "./svg/RightArrow";
 
