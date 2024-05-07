@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import Header from "../components/Header";
-import IllustrationPhoneMockUp from "./IllustrationPhoneMockup";
+import IllustrationPhoneMockUp from "./IllustrationPhoneMockup/IllustrationPhoneMockup";
 import PlatformEditingContextProvider from "./links/PlatformEditingContextProvider";
 import ProfileEditingContextProvider from "./profile-details/ProfileEditingContextProvider";
 
@@ -16,8 +16,10 @@ const layout = ({ children }: Props) => {
         <div className="flex gap-6 h-full w-full">
           <PlatformEditingContextProvider>
             <ProfileEditingContextProvider>
-              <IllustrationPhoneMockUp></IllustrationPhoneMockUp>
-              <div className="grow-[2]">{children}</div>
+              <div className="grow mdsm:hidden">
+                <IllustrationPhoneMockUp></IllustrationPhoneMockUp>
+              </div>
+              <div className="grow-[2] max-w-[1000px]">{children}</div>
             </ProfileEditingContextProvider>
           </PlatformEditingContextProvider>
         </div>

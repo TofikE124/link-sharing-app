@@ -46,7 +46,7 @@ const TextField = forwardRef<HTMLInputElement, Props>(
         </div>
 
         <input
-          className="body-m text-dark-grey text-field w-full border-0 outline-none mr-auto"
+          className="body-m text-dark-grey text-field w-full border-0 outline-none mr-auto "
           name={name}
           value={value}
           onChange={onChange}

@@ -1,5 +1,6 @@
 "use client";
 import { Platform } from "@/app/constants/platforms";
+import { warningToastOptions } from "@/app/constants/styles";
 import { CreatePlatformSchema } from "@/app/validationSchemas/Schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PlatformType } from "@prisma/client";
@@ -7,11 +8,13 @@ import axios from "axios";
 import { createContext, PropsWithChildren, useEffect, useState } from "react";
 import {
   FieldErrors,
+  FieldValues,
   useFieldArray,
   useForm,
   UseFormHandleSubmit,
   UseFormRegister,
 } from "react-hook-form";
+import toast from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 
@@ -21,14 +24,16 @@ interface PlatformEditingContextType {
   platforms: Platform[];
   appendPlatform: () => void;
   removePlatform: (index: number) => void;
-  allPlatformsTaken: boolean;
   handleReorder: (newPlatforms: Platform[]) => void;
   handlePlatformChange: (index: number, platformType: PlatformType) => void;
   avilablePlatforms: PlatformType[];
   register: UseFormRegister<PlatformFormData>;
   errors: FieldErrors<PlatformFormData>;
   handleSubmit: UseFormHandleSubmit<PlatformFormData>;
+  onSubmit: (data: FieldValues) => Promise<void>;
+  allPlatformsTaken: boolean;
   isValid: boolean;
+  isLoading: boolean;
 }
 
 export const PlatformEditingContext = createContext<PlatformEditingContextType>(
@@ -36,6 +41,7 @@ export const PlatformEditingContext = createContext<PlatformEditingContextType>(
 );
 
 const PlatformEditingContextProvider = ({ children }: PropsWithChildren) => {
+  const [isLoading, setLoading] = useState(true);
   const [avilablePlatforms, setAvilablePlatforms] = useState<PlatformType[]>(
     []
   );
@@ -46,7 +52,6 @@ const PlatformEditingContextProvider = ({ children }: PropsWithChildren) => {
     register,
     setValue,
     formState: { errors, isValid },
-    getValues,
   } = useForm<PlatformFormData>({
     resolver: zodResolver(CreatePlatformSchema),
   });
@@ -57,14 +62,28 @@ const PlatformEditingContextProvider = ({ children }: PropsWithChildren) => {
     remove,
     swap,
     update,
-    prepend,
   } = useFieldArray<PlatformFormData>({
     control,
     name: "platforms",
   });
 
-  const watchAllPlatforms = watch("platforms");
+  // Intialization
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get<Platform[]>("/api/platform")
+      .then((platforms) => {
+        setValue("platforms", platforms.data);
+      })
+      .catch((err) => {
+        toast.error("An error occured while getting your links");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
+  const watchAllPlatforms = watch("platforms");
   const allPlatformsTaken = avilablePlatforms.length == 0;
 
   const appendPlatform = () => {
@@ -89,12 +108,34 @@ const PlatformEditingContextProvider = ({ children }: PropsWithChildren) => {
     updateAvliablePlatforms();
   };
 
-  useEffect(() => {
-    axios.get<Platform[]>("/api/platform").then((platforms) => {
-      setValue("platforms", platforms.data);
-    });
-  }, []);
+  // Form submision
+  const [canSave, setCanSave] = useState(true);
 
+  const onSubmit = async (data: FieldValues) => {
+    if (!canSave) {
+      toast.error("Please wait before saving again", {
+        ...warningToastOptions,
+        duration: 2500,
+      });
+      return;
+    }
+    const createPlatformsPromise = axios.post("/api/platform", data);
+    await toast.promise(createPlatformsPromise, {
+      error: "An error occured while saving",
+      loading: "Saving...",
+      success: "Saved successfully",
+    });
+    saveCountDown();
+  };
+
+  const saveCountDown = () => {
+    setCanSave(false);
+    setTimeout(() => {
+      setCanSave(true);
+    }, 3000);
+  };
+
+  // Avilable platforms
   useEffect(() => {
     updateAvliablePlatforms();
   }, [watchAllPlatforms]);
@@ -111,14 +152,16 @@ const PlatformEditingContextProvider = ({ children }: PropsWithChildren) => {
     platforms: platforms as Platform[],
     appendPlatform,
     removePlatform,
-    allPlatformsTaken,
     handleReorder,
     handlePlatformChange,
     avilablePlatforms,
     register,
     errors,
     handleSubmit,
+    onSubmit,
     isValid,
+    isLoading,
+    allPlatformsTaken,
   };
 
   return (
@@ -130,6 +173,7 @@ const PlatformEditingContextProvider = ({ children }: PropsWithChildren) => {
 
 export default PlatformEditingContextProvider;
 
+// get swap index for reordering function
 const getSwapIndex = (oldArr: any[], newArr: any[]) => {
   let indexA = 0,
     indexB = 0;

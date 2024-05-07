@@ -1,47 +1,21 @@
 "use client";
-import { warningToastOptions } from "@/app/constants/styles";
-import axios from "axios";
-import { useContext, useState } from "react";
-import { FieldValues } from "react-hook-form";
-import toast from "react-hot-toast";
+import { useContext } from "react";
 import IllustrationEmpty from "./IllustrationEmpty";
 import { PlatformEditingContext } from "./PlatformEditingContextProvider";
 import PlatformsList from "./PlatformsList";
+import LoadingSkeleton from "@/app/components/LoadingSkeleton";
+import LinksLoadingSkeleton from "./LinksLoadingSkeleton";
 
 const page = () => {
-  const [canSave, setCanSave] = useState(true);
-
   const {
     platforms,
     allPlatformsTaken,
     handleReorder,
     appendPlatform,
     handleSubmit,
+    onSubmit,
+    isLoading,
   } = useContext(PlatformEditingContext);
-
-  const onSubmit = async (data: FieldValues) => {
-    if (!canSave) {
-      toast.error("Please wait before saving again", {
-        ...warningToastOptions,
-        duration: 2500,
-      });
-      return;
-    }
-    const createPlatformsPromise = axios.post("/api/platform", data);
-    await toast.promise(createPlatformsPromise, {
-      error: "An error occured while saving",
-      loading: "Saving...",
-      success: "Saved successfully",
-    });
-    saveCountDown();
-  };
-
-  const saveCountDown = () => {
-    setCanSave(false);
-    setTimeout(() => {
-      setCanSave(true);
-    }, 3000);
-  };
 
   return (
     <form
@@ -62,7 +36,9 @@ const page = () => {
         >
           + Add new link
         </button>
-        {platforms.length ? (
+        {isLoading ? (
+          <LinksLoadingSkeleton />
+        ) : platforms.length ? (
           <PlatformsList
             links={platforms}
             handleReorder={(newPlatforms) => handleReorder(newPlatforms)}
