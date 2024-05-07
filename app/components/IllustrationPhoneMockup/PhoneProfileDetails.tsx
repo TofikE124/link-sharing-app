@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Image from "next/image";
-import { ProfileEditingContext } from "../profile-details/ProfileEditingContextProvider";
+import { ProfileEditingContext } from "../../home/profile-details/ProfileEditingContextProvider";
 import PhoneProfileDetailsLoading from "./PhoneProfileDetailsLoading";
 
 const PhoneProfileDetails = () => {
@@ -11,24 +11,25 @@ const PhoneProfileDetails = () => {
     return <PhoneProfileDetailsLoading></PhoneProfileDetailsLoading>;
 
   return (
-    <>
-      <div className="centered-axis-x top-[63.5px] overflow-hidden rounded-full">
+    <div className="h-[158px] flex flex-col items-center">
+      <div className="overflow-hidden rounded-full">
         <Image
           src={profileImageURL}
           width={96}
           height={96}
           alt="Profile Image"
+          className="rounded-full border-4 border-purple object-cover"
         />
       </div>
-      <div className="centered-axis-x top-[180px] w-[200px] text-center flex flex-col gap-5 bg-pure-white">
+      <div className="w-[200px] mt-[12px] text-center flex flex-col gap-5 bg-pure-white">
         <h3 className="text-dark-grey heading-s text-[18px]">
           {firstName} {lastName}
         </h3>
       </div>
-      <div className="centered-axis-x top-[210px] w-[200px] text-center flex flex-col gap-5 bg-pure-white">
+      <div className="w-[200px] text-center flex flex-col gap-5 bg-pure-white">
         <p className="text-grey body-m text-[14px]">{contactEmail}</p>
       </div>
-    </>
+    </div>
   );
 };
 

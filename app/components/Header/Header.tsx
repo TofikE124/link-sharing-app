@@ -1,10 +1,8 @@
-import React from "react";
-import Tab from "./Tab";
 import Link from "next/link";
-import SmallIcon from "./SmallIcon";
-import { iconMap, iconType } from "../constants/icons";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/authOptions/authOptions";
+import { iconMap, iconType } from "../../constants/icons";
+import SmallIcon from "../SmallIcon";
+import Tab from "../Tab";
+import PreviewButton from "./PreviewButton";
 
 const tabs = [
   {
@@ -39,12 +37,7 @@ const Header = async () => {
           </Tab>
         ))}
       </div>
-      <button className="button-secondary sm:py-3 sm:px-4 sm:w-fit lgmd:w-[114px]">
-        <span className="sm:hidden">Preview</span>
-        <div className="lgmd:hidden">
-          <SmallIcon icon={iconMap[iconType.PREVIEW_HEADER]} color="#633CFF" />
-        </div>
-      </button>
+      <PreviewButton />
     </div>
   );
 };

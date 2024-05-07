@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
-import Header from "../components/Header";
-import IllustrationPhoneMockUp from "./IllustrationPhoneMockup/IllustrationPhoneMockup";
+import Header from "../components/Header/Header";
+import IllustrationPhoneMockUp from "../components/IllustrationPhoneMockup/IllustrationPhoneMockup";
 import PlatformEditingContextProvider from "./links/PlatformEditingContextProvider";
 import ProfileEditingContextProvider from "./profile-details/ProfileEditingContextProvider";
 

@@ -2,31 +2,38 @@ import { PlatformType } from "@prisma/client";
 import { platformMap } from "../constants/platforms";
 import SmallIcon from "./SmallIcon";
 import RightArrow from "./svg/RightArrow";
+import Link from "next/link";
 
 interface Props {
-  linkType: PlatformType;
+  platformType: PlatformType;
+  platformLink: string;
 }
 
-const PreviewLink = ({ linkType }: Props) => {
-  const Link = platformMap[linkType];
-  if (!Link) return;
+const PreviewLink = ({ platformType, platformLink }: Props) => {
+  const platform = platformMap[platformType];
+  if (!platform) return;
 
   return (
-    <div
-      className={`preview-link w-[237px] h-[44px] border-[1px] border-solid flex gap-2 items-center p-4 rounded-lg cursor-pointer`}
+    <Link
+      className={`preview-link no-underline w-[244px] h-[44px] border-[1px] border-solid flex gap-2 items-center p-4 rounded-lg cursor-pointer`}
       style={{
-        backgroundColor: Link.backgroundColor,
-        borderColor: Link.borderColor ?? "transparent",
+        backgroundColor: platform.backgroundColor,
+        borderColor: platform.borderColor ?? "transparent",
       }}
+      href={platformLink}
+      target="_blank"
     >
-      <SmallIcon icon={Link.icon} color={Link.maskColor || "#fff"}></SmallIcon>
-      <p className="body-m mr-auto" style={{ color: Link.color ?? "#fff" }}>
-        {Link.label}
+      <SmallIcon
+        icon={platform.icon}
+        color={platform.maskColor || "#fff"}
+      ></SmallIcon>
+      <p className="body-m mr-auto" style={{ color: platform.color ?? "#fff" }}>
+        {platform.label}
       </p>
       <div className="w-4 h-4">
-        <RightArrow fill={Link.arrowColor}></RightArrow>
+        <RightArrow fill={platform.arrowColor}></RightArrow>
       </div>
-    </div>
+    </Link>
   );
 };
 

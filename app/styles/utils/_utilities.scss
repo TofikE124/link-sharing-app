@@ -14,12 +14,21 @@
   background-color: $LIGHT-GREY;
 }
 
+.bg-purple {
+  background-color: $PURPLE;
+}
+
 .bg-light-purple {
   background-color: $LIGHT-PURPLE;
 }
 
 .border-borders {
   border-color: $BORDERS;
+  border-style: solid;
+}
+
+.border-purple {
+  border-color: $PURPLE;
   border-style: solid;
 }
 

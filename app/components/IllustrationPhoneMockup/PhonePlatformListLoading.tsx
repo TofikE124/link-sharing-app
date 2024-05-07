@@ -3,41 +3,34 @@ import React from "react";
 
 const PhonePlatformListLoading = () => {
   return (
-    <div className="centered-axis-x top-[274px] flex flex-col gap-5">
+    <div className="mt-[56px] flex flex-col gap-6">
       <LoadingSkeleton
         width={242}
         height={44}
-        containerClassName="h-[44px]"
         baseColor="#FAFAFA"
         borderRadius={12}
+        containerClassName="h-[44px] -mt-1"
       ></LoadingSkeleton>
       <LoadingSkeleton
         width={242}
         height={44}
-        containerClassName="h-[44px]"
         baseColor="#FAFAFA"
         borderRadius={12}
-      ></LoadingSkeleton>
+        containerClassName="h-[44px] -mt-1"
+      ></LoadingSkeleton>{" "}
       <LoadingSkeleton
         width={242}
         height={44}
-        containerClassName="h-[44px]"
         baseColor="#FAFAFA"
         borderRadius={12}
-      ></LoadingSkeleton>
+        containerClassName="h-[44px] -mt-1"
+      ></LoadingSkeleton>{" "}
       <LoadingSkeleton
         width={242}
         height={44}
-        containerClassName="h-[44px]"
         baseColor="#FAFAFA"
         borderRadius={12}
-      ></LoadingSkeleton>
-      <LoadingSkeleton
-        width={242}
-        height={44}
-        containerClassName="h-[44px]"
-        baseColor="#FAFAFA"
-        borderRadius={12}
+        containerClassName="h-[44px] -mt-1"
       ></LoadingSkeleton>
     </div>
   );
