@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { ProfileEditingContext } from "./ProfileEditingContextProvider";
+import { ProfileEditingContext } from "../../components/providers/ProfileEditingContextProvider";
 import CloudinaryUpload from "@/app/components/CloudinaryUpload";
 
 const ProfilePicture = () => {

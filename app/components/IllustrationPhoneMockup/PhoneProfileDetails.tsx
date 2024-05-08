@@ -1,34 +1,33 @@
 "use client";
-import React, { useContext } from "react";
-import Image from "next/image";
-import { ProfileEditingContext } from "../../home/profile-details/ProfileEditingContextProvider";
-import PhoneProfileDetailsLoading from "./PhoneProfileDetailsLoading";
 import { ViewProfileContext } from "@/app/preview/[uniqueLink]/ViewProfileContextProvider";
+import Image from "next/image";
+import { useContext } from "react";
+import { ProfileEditingContext } from "../providers/ProfileEditingContextProvider";
+import { UserProfileContext } from "@/app/home/UserProfileContextProvider";
 
 const PhoneProfileDetails = () => {
-  const profileEditingContext = useContext(ProfileEditingContext);
+  const userProfileContext = useContext(UserProfileContext);
   const viewProfileContext = useContext(ViewProfileContext);
-  const context = Object.keys(profileEditingContext).length
-    ? profileEditingContext
+  const context = Object.keys(userProfileContext).length
+    ? userProfileContext
     : viewProfileContext;
-  const { firstName, lastName, contactEmail, profileImageURL, isLoading } =
-    context ?? {};
+  const { user } = context ?? {};
+  if (!user) return;
 
-  if (isLoading)
-    return <PhoneProfileDetailsLoading></PhoneProfileDetailsLoading>;
+  const { firstName, lastName, contactEmail, image: profileImageURL } = user;
 
   return (
     <div className="h-[158px] flex flex-col items-center">
       <div className="overflow-hidden rounded-full">
         <Image
-          src={profileImageURL}
+          src={profileImageURL || ""}
           width={96}
           height={96}
           alt="Profile Image"
           className="rounded-full border-4 border-purple object-cover"
         />
       </div>
-      <div className="w-[200px] mt-[12px] text-center flex flex-col gap-5 bg-pure-white">
+      <div className="w-[200px] mt-[14px] text-center flex flex-col gap-5 bg-pure-white">
         <h3 className="text-dark-grey heading-s text-[18px]">
           {firstName} {lastName}
         </h3>

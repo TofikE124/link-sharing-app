@@ -5,7 +5,7 @@ import { platformMap } from "@/app/constants/platforms";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import DropdownToggle from "./DropdownToggle";
 import MenuList from "./MenuList";
-import { PlatformEditingContext } from "@/app/home/links/PlatformEditingContextProvider";
+import { PlatformEditingContext } from "@/app/components/providers/PlatformEditingContextProvider";
 import { PlatformType } from "@prisma/client";
 
 interface MenuContextType {

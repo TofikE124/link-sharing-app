@@ -4,7 +4,7 @@ import { useContext } from "react";
 import MenuDropdown from "../../components/Menu/MenuDropdown";
 import TextField from "../../components/TextField";
 import { iconType } from "../../constants/icons";
-import { PlatformEditingContext } from "./PlatformEditingContextProvider";
+import { PlatformEditingContext } from "../../components/providers/PlatformEditingContextProvider";
 import { PlatformType } from "@prisma/client";
 
 interface Props {

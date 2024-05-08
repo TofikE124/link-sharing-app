@@ -1,20 +1,16 @@
 "use client";
 import { Platform } from "@/app/constants/platforms";
-import { warningToastOptions } from "@/app/constants/styles";
 import { CreatePlatformSchema } from "@/app/validationSchemas/Schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PlatformType } from "@prisma/client";
-import axios from "axios";
-import { createContext, PropsWithChildren, useEffect, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import {
   FieldErrors,
-  FieldValues,
   useFieldArray,
   useForm,
   UseFormHandleSubmit,
   UseFormRegister,
 } from "react-hook-form";
-import toast from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 
@@ -30,18 +26,27 @@ interface PlatformEditingContextType {
   register: UseFormRegister<PlatformFormData>;
   errors: FieldErrors<PlatformFormData>;
   handleSubmit: UseFormHandleSubmit<PlatformFormData>;
-  onSubmit: (data: FieldValues) => Promise<void>;
+  onSubmit: (data: any) => void;
   allPlatformsTaken: boolean;
   isValid: boolean;
-  isLoading: boolean;
+  isDirty: boolean;
 }
 
 export const PlatformEditingContext = createContext<PlatformEditingContextType>(
   {} as PlatformEditingContextType
 );
 
-const PlatformEditingContextProvider = ({ children }: PropsWithChildren) => {
-  const [isLoading, setLoading] = useState(true);
+interface Props {
+  defaultPlatforms: Platform[];
+  handleSave: (data: Platform[]) => void;
+  children: ReactNode;
+}
+
+const PlatformEditingContextProvider = ({
+  defaultPlatforms,
+  children,
+  handleSave,
+}: Props) => {
   const [avilablePlatforms, setAvilablePlatforms] = useState<PlatformType[]>(
     []
   );
@@ -51,9 +56,12 @@ const PlatformEditingContextProvider = ({ children }: PropsWithChildren) => {
     watch,
     register,
     setValue,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isDirty },
   } = useForm<PlatformFormData>({
     resolver: zodResolver(CreatePlatformSchema),
+    defaultValues: {
+      platforms: defaultPlatforms,
+    },
   });
 
   const {
@@ -66,22 +74,6 @@ const PlatformEditingContextProvider = ({ children }: PropsWithChildren) => {
     control,
     name: "platforms",
   });
-
-  // Intialization
-  useEffect(() => {
-    setLoading(true);
-    axios
-      .get<Platform[]>("/api/platform")
-      .then((platforms) => {
-        setValue("platforms", platforms.data);
-      })
-      .catch((err) => {
-        toast.error("An error occured while getting your links");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
 
   const watchAllPlatforms = watch("platforms");
   const allPlatformsTaken = avilablePlatforms.length == 0;
@@ -109,36 +101,19 @@ const PlatformEditingContextProvider = ({ children }: PropsWithChildren) => {
   };
 
   // Form submision
-  const [canSave, setCanSave] = useState(true);
 
-  const onSubmit = async (data: FieldValues) => {
-    if (!canSave) {
-      toast.error("Please wait before saving again", {
-        ...warningToastOptions,
-        duration: 2500,
-      });
-      return;
-    }
-    const createPlatformsPromise = axios.post("/api/platform", data);
-    await toast.promise(createPlatformsPromise, {
-      error: "An error occured while saving",
-      loading: "Saving...",
-      success: "Saved successfully",
-    });
-    saveCountDown();
-  };
-
-  const saveCountDown = () => {
-    setCanSave(false);
-    setTimeout(() => {
-      setCanSave(true);
-    }, 3000);
+  const onSubmit = (data: Platform[]) => {
+    handleSave(data);
   };
 
   // Avilable platforms
   useEffect(() => {
     updateAvliablePlatforms();
   }, [watchAllPlatforms]);
+
+  useEffect(() => {
+    console.log(isDirty);
+  }, [isDirty]);
 
   const updateAvliablePlatforms = () => {
     const takenPlatforms = [...platforms].map((field) => field.type);
@@ -160,7 +135,7 @@ const PlatformEditingContextProvider = ({ children }: PropsWithChildren) => {
     handleSubmit,
     onSubmit,
     isValid,
-    isLoading,
+    isDirty,
     allPlatformsTaken,
   };
 

@@ -1,12 +1,15 @@
 "use client";
 import { useContext } from "react";
+import { PlatformEditingContext } from "../../components/providers/PlatformEditingContextProvider";
 import IllustrationEmpty from "./IllustrationEmpty";
-import { PlatformEditingContext } from "./PlatformEditingContextProvider";
-import PlatformsList from "./PlatformsList";
-import LoadingSkeleton from "@/app/components/LoadingSkeleton";
 import LinksLoadingSkeleton from "./LinksLoadingSkeleton";
+import PlatformsList from "./PlatformsList";
+import { UserProfileContext } from "../UserProfileContextProvider";
+import Loading from "./loading";
 
 const page = () => {
+  const { isLoading } = useContext(UserProfileContext);
+  if (isLoading) return <Loading />;
   const {
     platforms,
     allPlatformsTaken,
@@ -14,7 +17,7 @@ const page = () => {
     appendPlatform,
     handleSubmit,
     onSubmit,
-    isLoading,
+    isDirty,
   } = useContext(PlatformEditingContext);
 
   return (

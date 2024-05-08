@@ -1,20 +1,20 @@
 "use client";
 import PreviewLink from "@/app/components/PreviewLink";
+import { UserProfileContext } from "@/app/home/UserProfileContextProvider";
 import { ViewProfileContext } from "@/app/preview/[uniqueLink]/ViewProfileContextProvider";
 import { useContext } from "react";
-import PhonePlatformListLoading from "./PhonePlatformListLoading";
-import { PlatformEditingContext } from "@/app/home/links/PlatformEditingContextProvider";
 
 const PhonePlatforms = () => {
-  const platformEditingContext = useContext(PlatformEditingContext);
+  const userProfileContext = useContext(UserProfileContext);
   const viewProfileContext = useContext(ViewProfileContext);
 
   const context =
-    Object.keys(platformEditingContext).length != 0
-      ? platformEditingContext
+    Object.keys(userProfileContext).length != 0
+      ? userProfileContext
       : viewProfileContext;
-  const { platforms, isLoading } = context ?? {};
-  if (isLoading) return <PhonePlatformListLoading></PhonePlatformListLoading>;
+  const { user } = context ?? {};
+  if (!user) return;
+  const { platforms } = user;
 
   return (
     <div className="mt-[56px] flex flex-col gap-5">

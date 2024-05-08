@@ -1,6 +1,3 @@
-import { User } from "@prisma/client";
-import axios from "axios";
-import { error } from "console";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import ShareLinkButton from "./ShareLinkButton";

@@ -1,11 +1,10 @@
 "use client";
-import { warningToastOptions } from "@/app/constants/styles";
+import { UserWithPlatforms } from "@/app/home/UserProfileContextProvider";
 import { EditProfileSchema } from "@/app/validationSchemas/Schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { User } from "@prisma/client";
-import axios from "axios";
 import { useSession } from "next-auth/react";
-import { createContext, PropsWithChildren, useEffect, useState } from "react";
+import { createContext, ReactNode } from "react";
 import {
   Control,
   FieldErrors,
@@ -18,8 +17,13 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
-import toast from "react-hot-toast";
 import { z } from "zod";
+
+interface Props {
+  user: UserWithPlatforms;
+  handleSave: (data: User) => void;
+  children: ReactNode;
+}
 
 type editProfileType = z.infer<typeof EditProfileSchema>;
 
@@ -36,7 +40,7 @@ interface ProfileEditingContextType {
   onImageUpload: (url: string) => void;
   profileImageURL: string;
   isValid: boolean;
-  isLoading: boolean;
+  isDirty: boolean;
   firstName: string;
   lastName: string;
   contactEmail: string;
@@ -46,7 +50,11 @@ export const ProfileEditingContext = createContext<ProfileEditingContextType>(
   {} as ProfileEditingContextType
 );
 
-const ProfileEditingContextProvider = ({ children }: PropsWithChildren) => {
+const ProfileEditingContextProvider = ({
+  handleSave,
+  user,
+  children,
+}: Props) => {
   const { data: session, status } = useSession();
 
   const {
@@ -57,39 +65,21 @@ const ProfileEditingContextProvider = ({ children }: PropsWithChildren) => {
     watch,
     setValue,
     clearErrors,
-    formState: { isValid, errors },
+    formState: { isValid, errors, isDirty },
   } = useForm<editProfileType>({
     resolver: zodResolver(EditProfileSchema),
+    defaultValues: {
+      contactEmail: user.contactEmail || "",
+      firstName: user.firstName || "",
+      lastName: user.lastName || "",
+      profileImage: user.image || "",
+    },
   });
 
-  const imageURL = watch("profileImage");
   let firstName = watch("firstName");
   let lastName = watch("lastName");
   let contactEmail = watch("contactEmail");
   let profileImageURL = watch("profileImage");
-
-  const [isLoading, setLoading] = useState(true);
-  // Initialization
-  useEffect(() => {
-    if (status == "authenticated") {
-      setLoading(true);
-      axios
-        .get("/api/user", { headers: { email: session?.user?.email } })
-        .then((response: any) => {
-          const user = response.data as User;
-          if (user.firstName) setValue("firstName", user.firstName);
-          if (user.lastName) setValue("lastName", user.lastName);
-          if (user.contactEmail) setValue("contactEmail", user.contactEmail);
-          if (user.image) setValue("profileImage", user.image);
-        })
-        .catch((err) => {
-          toast.error("An error occured while getting your data");
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    }
-  }, [session]);
 
   // Profile Picture
   const onImageUpload = (url: string) => {
@@ -98,36 +88,8 @@ const ProfileEditingContextProvider = ({ children }: PropsWithChildren) => {
   };
 
   // Form Submission
-  const [canSave, setCanSave] = useState(true);
   const onSubmit = async (data: any) => {
-    if (!canSave) {
-      toast.error("Please wait before saving again", {
-        ...warningToastOptions,
-        duration: 2500,
-      });
-      return;
-    }
-    const savePromise = axios.patch(
-      "/api/user",
-      {
-        ...data,
-      },
-      { headers: { email: session?.user?.email } }
-    );
-
-    await toast.promise(savePromise, {
-      loading: "Saving...",
-      error: "An Error Occured While Saving",
-      success: "Saved Successfully",
-    });
-    saveCountDown();
-  };
-
-  const saveCountDown = () => {
-    setCanSave(false);
-    setTimeout(() => {
-      setCanSave(true);
-    }, 3000);
+    handleSave(data);
   };
 
   // Context Value
@@ -144,7 +106,7 @@ const ProfileEditingContextProvider = ({ children }: PropsWithChildren) => {
     onImageUpload,
     profileImageURL,
     isValid,
-    isLoading,
+    isDirty,
     firstName,
     lastName,
     contactEmail,

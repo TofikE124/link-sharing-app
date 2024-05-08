@@ -1,4 +1,5 @@
 "use client";
+import { UserWithPlatforms } from "@/app/home/UserProfileContextProvider";
 import { Platform, User } from "@prisma/client";
 import axios from "axios";
 import { createContext, ReactNode, useEffect, useState } from "react";
@@ -10,11 +11,7 @@ interface Props {
 }
 
 interface ViewPlatformContextType {
-  platforms: Platform[];
-  firstName: string;
-  lastName: string;
-  contactEmail: string;
-  profileImageURL: string;
+  user: UserWithPlatforms;
   isLoading: boolean;
 }
 
@@ -37,11 +34,7 @@ const ViewPlatformContextProvider = ({
       .then((response) => {
         const user = response.data as User & { platforms: Platform[] };
         setViewPlatformContextValue({
-          platforms: user?.platforms || [],
-          firstName: user?.firstName || "",
-          lastName: user?.lastName || "",
-          contactEmail: user?.contactEmail || "",
-          profileImageURL: user?.image || "",
+          user,
           isLoading: false,
         });
       })

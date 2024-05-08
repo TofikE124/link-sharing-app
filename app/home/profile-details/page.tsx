@@ -1,23 +1,17 @@
 "use client";
-import CloudinaryUpload from "@/app/components/CloudinaryUpload";
-import TextField from "@/app/components/TextField";
-import axios from "axios";
-import { useSession } from "next-auth/react";
-import { useContext, useEffect, useState } from "react";
-import { ProfileEditingContext } from "./ProfileEditingContextProvider";
-import toast from "react-hot-toast";
-import { Oval } from "react-loader-spinner";
-import OvalLoadingSpinner from "@/app/components/OvalLoadingSpinner";
-import { warningToastOptions } from "@/app/constants/styles";
+import { useContext } from "react";
+import { ProfileEditingContext } from "../../components/providers/ProfileEditingContextProvider";
+import { UserProfileContext } from "../UserProfileContextProvider";
+import Loading from "./loading";
 import ProfileDetails from "./ProfileDetails";
+import ProfileDetailsLoadingSkeleton from "./ProfileDetailsLoadingSkeleton";
 import ProfilePicture from "./ProfilePicture";
 import ProfilePictureLoadingSkeleton from "./ProfilePictureLoadingSkeleton";
-import ProfileDetailsLoadingSkeleton from "./ProfileDetailsLoadingSkeleton";
 
 const page = () => {
-  const { handleSubmit, onSubmit, isLoading } = useContext(
-    ProfileEditingContext
-  );
+  const { isLoading } = useContext(UserProfileContext);
+  if (isLoading) return <Loading />;
+  const { handleSubmit, onSubmit, isDirty } = useContext(ProfileEditingContext);
 
   return (
     <form

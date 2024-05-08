@@ -1,6 +1,6 @@
 import TextField from "@/app/components/TextField";
 import { useContext } from "react";
-import { ProfileEditingContext } from "./ProfileEditingContextProvider";
+import { ProfileEditingContext } from "../../components/providers/ProfileEditingContextProvider";
 
 const ProfileDetails = () => {
   const { register, errors } = useContext(ProfileEditingContext);

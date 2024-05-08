@@ -21,6 +21,12 @@ const LinksLoadingSkeleton = () => {
         borderRadius={12}
         baseColor="#FAFAFA"
       ></LoadingSkeleton>
+      <LoadingSkeleton
+        width="100%"
+        height={258}
+        borderRadius={12}
+        baseColor="#FAFAFA"
+      ></LoadingSkeleton>
     </div>
   );
 };

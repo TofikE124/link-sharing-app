@@ -1,7 +1,6 @@
-import LoadingSkeleton from "@/app/components/LoadingSkeleton";
 import LinksLoadingSkeleton from "./LinksLoadingSkeleton";
 
-const loading = () => {
+const Loading = () => {
   return (
     <div className="rounded-xl bg-pure-white h-fit">
       <div className="p-10">
@@ -13,7 +12,7 @@ const loading = () => {
         <button className="button-secondary mt-10" type="button">
           + Add new link
         </button>
-        <LinksLoadingSkeleton></LinksLoadingSkeleton>
+        <LinksLoadingSkeleton />
       </div>
       <div className="mt-10 pt-6 border-borders border-0 border-t w-full lgmd:pb-6 sm:p-4">
         <button className="button-primary lgmd:w-[91px] sm:w-full block ml-auto mr-6">
@@ -24,4 +23,4 @@ const loading = () => {
   );
 };
 
-export default loading;
+export default Loading;

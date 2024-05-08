@@ -2,7 +2,7 @@ import React from "react";
 import ProfileDetailsLoadingSkeleton from "./ProfileDetailsLoadingSkeleton";
 import ProfilePictureLoadingSkeleton from "./ProfilePictureLoadingSkeleton";
 
-const loading = () => {
+const Loading = () => {
   return (
     <div className="bg-pure-white rounded-xl h-fit">
       <div className="p-10">
@@ -22,4 +22,4 @@ const loading = () => {
   );
 };
 
-export default loading;
+export default Loading;
