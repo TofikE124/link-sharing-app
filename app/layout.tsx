@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Instrument_Sans, Inter } from "next/font/google";
-import "./main.scss";
-import SessionProvider from "./components/SessionProvider";
+import { Instrument_Sans } from "next/font/google";
 import { Toaster } from "react-hot-toast";
+import ConfirmAlertContextProvider from "./components/providers/ConfirmAlertContextProvider";
+import SessionProvider from "./components/SessionProvider";
+import "./main.scss";
 
 const instrumentSans = Instrument_Sans({
   weight: ["400", "600", "700"],
@@ -24,7 +25,7 @@ export default function RootLayout({
       <body className={instrumentSans.className}>
         <SessionProvider>
           <Toaster />
-          {children}
+          <ConfirmAlertContextProvider>{children}</ConfirmAlertContextProvider>
         </SessionProvider>
       </body>
     </html>

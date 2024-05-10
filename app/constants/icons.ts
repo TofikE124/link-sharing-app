@@ -23,6 +23,7 @@ export enum iconType {
   LINKS_HEADER,
   PROFILE_DETAILS_HEADER,
   IMAGE_UPLOAD,
+  LOGIN,
 }
 
 export const iconMap: Record<iconType, icon> = {
@@ -51,5 +52,8 @@ export const iconMap: Record<iconType, icon> = {
   },
   [iconType.IMAGE_UPLOAD]: {
     URL: "/assets/images/icon-upload-image.svg",
+  },
+  [iconType.LOGIN]: {
+    URL: "/assets/images/icon-login.svg",
   },
 };

@@ -1,0 +1,9 @@
+.confirm-alert {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 300ms;
+  &.shown {
+    opacity: 1;
+    visibility: visible;
+  }
+}

@@ -1,5 +1,6 @@
 "use client";
 import { Platform } from "@/app/constants/platforms";
+import { warningToastOptions } from "@/app/constants/styles";
 import { CreatePlatformSchema } from "@/app/validationSchemas/Schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PlatformType } from "@prisma/client";
@@ -11,6 +12,7 @@ import {
   UseFormHandleSubmit,
   UseFormRegister,
 } from "react-hook-form";
+import toast from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 
@@ -110,10 +112,6 @@ const PlatformEditingContextProvider = ({
   useEffect(() => {
     updateAvliablePlatforms();
   }, [watchAllPlatforms]);
-
-  useEffect(() => {
-    console.log(isDirty);
-  }, [isDirty]);
 
   const updateAvliablePlatforms = () => {
     const takenPlatforms = [...platforms].map((field) => field.type);

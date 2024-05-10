@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { iconMap, iconType } from "../../constants/icons";
-import SmallIcon from "../SmallIcon";
 import Tab from "../Tab";
 import PreviewButton from "./PreviewButton";
+import { getServerSession } from "next-auth";
+import SmallIcon from "../SmallIcon";
+import LoginButton from "./LoginButton";
 
 const tabs = [
   {
@@ -18,6 +20,8 @@ const tabs = [
 ];
 
 const Header = async () => {
+  const session = await getServerSession();
+
   return (
     <div className="bg-pure-white p-6 rounded-xl flex justify-between items-center">
       <Link href="/" className="cursor-pointer">
@@ -37,7 +41,7 @@ const Header = async () => {
           </Tab>
         ))}
       </div>
-      <PreviewButton />
+      {session?.user ? <PreviewButton /> : <LoginButton />}
     </div>
   );
 };

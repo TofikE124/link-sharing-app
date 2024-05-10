@@ -36,7 +36,7 @@ const page = () => {
         )}
       </div>
       <div className="mt-10 pt-6 border-borders border-0 border-t w-full lgmd:pb-6 sm:p-4">
-        <button className="button-primary flex items-center justify-center lgmd:w-[91px] sm:w-full ml-auto mr-6">
+        <button disabled={!isDirty} className="button-primary flex items-center justify-center lgmd:w-[91px] sm:w-full ml-auto mr-6">
           Save
         </button>
       </div>
