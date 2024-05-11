@@ -12,6 +12,7 @@ import React, {
 import toast from "react-hot-toast";
 import { warningToastOptions } from "../constants/styles";
 import { Platform } from "../constants/platforms";
+import { editProfileType } from "../components/providers/ProfileEditingContextProvider";
 
 export type UserWithPlatforms = User & { platforms: Platform[] };
 
@@ -56,6 +57,7 @@ const UserProfileContextProvider = ({ children }: PropsWithChildren) => {
 
   // Form Submission
   const [canSave, setCanSave] = useState(true);
+
   const saveProfile = (data: User) => {
     if (!canSave) {
       toast.error("Please wait before saving again", {
@@ -82,7 +84,8 @@ const UserProfileContextProvider = ({ children }: PropsWithChildren) => {
         error: "An Error Occured While Saving",
         success: "Saved Successfully",
       })
-      .then(() => {
+      .then((response) => {
+        setUser(response.data);
         saveCountDown();
         setKey(key + 1);
       });

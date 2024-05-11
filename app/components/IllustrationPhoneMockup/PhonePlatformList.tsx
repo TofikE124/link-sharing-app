@@ -3,14 +3,15 @@ import PreviewLink from "@/app/components/PreviewLink";
 import { UserProfileContext } from "@/app/home/UserProfileContextProvider";
 import { ViewProfileContext } from "@/app/preview/[uniqueLink]/ViewProfileContextProvider";
 import { useContext } from "react";
+import { PlatformEditingContext } from "../providers/PlatformEditingContextProvider";
 
 const PhonePlatforms = () => {
-  const userProfileContext = useContext(UserProfileContext);
+  const platformEditingContext = useContext(PlatformEditingContext);
   const viewProfileContext = useContext(ViewProfileContext);
 
   const context =
-    Object.keys(userProfileContext).length != 0
-      ? userProfileContext
+    Object.keys(platformEditingContext).length != 0
+      ? platformEditingContext
       : viewProfileContext;
   const { user } = context ?? {};
   if (!user) return;

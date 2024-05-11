@@ -3,7 +3,6 @@ import { UserWithPlatforms } from "@/app/home/UserProfileContextProvider";
 import { EditProfileSchema } from "@/app/validationSchemas/Schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { User } from "@prisma/client";
-import { useSession } from "next-auth/react";
 import { createContext, ReactNode } from "react";
 import {
   Control,
@@ -19,7 +18,7 @@ import {
 } from "react-hook-form";
 import { z } from "zod";
 
-type editProfileType = z.infer<typeof EditProfileSchema>;
+export type editProfileType = z.infer<typeof EditProfileSchema>;
 
 interface ProfileEditingContextType {
   register: UseFormRegister<editProfileType>;
@@ -32,12 +31,13 @@ interface ProfileEditingContextType {
   clearErrors: UseFormClearErrors<editProfileType>;
   errors: FieldErrors<editProfileType>;
   onImageUpload: (url: string) => void;
-  profileImageURL: string;
+  image: string;
   isValid: boolean;
   isDirty: boolean;
   firstName: string;
   lastName: string;
   contactEmail: string;
+  user: editProfileType;
 }
 
 export const ProfileEditingContext = createContext<ProfileEditingContextType>(
@@ -70,19 +70,21 @@ const ProfileEditingContextProvider = ({
       contactEmail: user?.contactEmail || "",
       firstName: user?.firstName || "",
       lastName: user?.lastName || "",
-      profileImage: user?.image || "",
+      image: user?.image || "",
     },
   });
 
   let firstName = watch("firstName");
   let lastName = watch("lastName");
   let contactEmail = watch("contactEmail");
-  let profileImageURL = watch("profileImage");
+  let image = watch("image");
+
+  const data = { firstName, lastName, contactEmail, image };
 
   // Profile Picture
   const onImageUpload = (url: string) => {
-    setValue("profileImage", url);
-    clearErrors("profileImage");
+    setValue("image", url);
+    clearErrors("image");
   };
 
   // Form Submission
@@ -102,12 +104,18 @@ const ProfileEditingContextProvider = ({
     errors,
     clearErrors,
     onImageUpload,
-    profileImageURL,
+    image,
     isValid,
     isDirty,
     firstName,
     lastName,
     contactEmail,
+    user: {
+      firstName,
+      lastName,
+      contactEmail,
+      image,
+    },
   };
 
   return (

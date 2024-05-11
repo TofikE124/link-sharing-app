@@ -3,29 +3,31 @@ import { ViewProfileContext } from "@/app/preview/[uniqueLink]/ViewProfileContex
 import Image from "next/image";
 import { useContext } from "react";
 import { ProfileEditingContext } from "../providers/ProfileEditingContextProvider";
-import { UserProfileContext } from "@/app/home/UserProfileContextProvider";
 
 const PhoneProfileDetails = () => {
-  const userProfileContext = useContext(UserProfileContext);
+  const profileEditingContext = useContext(ProfileEditingContext);
   const viewProfileContext = useContext(ViewProfileContext);
-  const context = Object.keys(userProfileContext).length
-    ? userProfileContext
+  const context = Object.keys(profileEditingContext).length
+    ? profileEditingContext
     : viewProfileContext;
   const { user } = context ?? {};
   if (!user) return;
 
-  const { firstName, lastName, contactEmail, image: profileImageURL } = user;
-
+  const { firstName, lastName, contactEmail, image } = user;
   return (
     <div className="h-[158px] flex flex-col items-center">
       <div className="overflow-hidden rounded-full">
-        <Image
-          src={profileImageURL || ""}
-          width={96}
-          height={96}
-          alt="Profile Image"
-          className="rounded-full border-4 border-purple object-cover"
-        />
+        {image ? (
+          <Image
+            src={image || ""}
+            width={96}
+            height={96}
+            alt="Profile Image"
+            className="rounded-full border-4 border-purple object-cover"
+          />
+        ) : (
+          <></>
+        )}
       </div>
       <div className="w-[200px] mt-[14px] text-center flex flex-col gap-5 bg-pure-white">
         <h3 className="text-dark-grey heading-s text-[18px]">

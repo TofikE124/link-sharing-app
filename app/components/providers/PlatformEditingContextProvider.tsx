@@ -1,6 +1,5 @@
 "use client";
 import { Platform } from "@/app/constants/platforms";
-import { warningToastOptions } from "@/app/constants/styles";
 import { CreatePlatformSchema } from "@/app/validationSchemas/Schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PlatformType } from "@prisma/client";
@@ -12,12 +11,13 @@ import {
   UseFormHandleSubmit,
   UseFormRegister,
 } from "react-hook-form";
-import toast from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 
+// Schema
 type PlatformFormData = z.infer<typeof CreatePlatformSchema>;
 
+// Context
 interface PlatformEditingContextType {
   platforms: Platform[];
   appendPlatform: () => void;
@@ -32,12 +32,13 @@ interface PlatformEditingContextType {
   allPlatformsTaken: boolean;
   isValid: boolean;
   isDirty: boolean;
+  user: { platforms: Platform[] };
 }
-
 export const PlatformEditingContext = createContext<PlatformEditingContextType>(
   {} as PlatformEditingContextType
 );
 
+// Props
 interface Props {
   defaultPlatforms: Platform[];
   handleSave: (data: Platform[]) => void;
@@ -49,15 +50,17 @@ const PlatformEditingContextProvider = ({
   children,
   handleSave,
 }: Props) => {
+  // States
   const [avilablePlatforms, setAvilablePlatforms] = useState<PlatformType[]>(
     []
   );
+
+  // Form
   const {
     control,
     handleSubmit,
     watch,
     register,
-    setValue,
     formState: { errors, isValid, isDirty },
   } = useForm<PlatformFormData>({
     resolver: zodResolver(CreatePlatformSchema),
@@ -121,6 +124,7 @@ const PlatformEditingContextProvider = ({
     setAvilablePlatforms(newAvilablePlatforms);
   };
 
+  // Context
   const linkEditingContextValue = {
     platforms: platforms as Platform[],
     appendPlatform,
@@ -135,6 +139,7 @@ const PlatformEditingContextProvider = ({
     isValid,
     isDirty,
     allPlatformsTaken,
+    user: { platforms: platforms as Platform[] },
   };
 
   return (
