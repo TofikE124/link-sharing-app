@@ -13,6 +13,7 @@ const OvalLoadingSpinner = ({ width = 30, height = 30 }: Props) => {
       width={width}
       height={height}
       color="#fff"
+      secondaryColor="#633cff"
       ariaLabel="oval-loading"
     />
   );

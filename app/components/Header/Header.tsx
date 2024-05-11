@@ -1,10 +1,12 @@
+"use client";
 import Link from "next/link";
 import { iconMap, iconType } from "../../constants/icons";
 import Tab from "../Tab";
-import PreviewButton from "./PreviewButton";
-import { getServerSession } from "next-auth";
-import SmallIcon from "../SmallIcon";
 import LoginButton from "./LoginButton";
+import PreviewButton from "./PreviewButton";
+import SignOutButton from "./SignOutButton";
+import { useSession } from "next-auth/react";
+import OvalLoadingSpinner from "../OvalLoadingSpinner";
 
 const tabs = [
   {
@@ -19,9 +21,8 @@ const tabs = [
   },
 ];
 
-const Header = async () => {
-  const session = await getServerSession();
-
+const Header = () => {
+  const { data: session, status } = useSession();
   return (
     <div className="bg-pure-white p-6 rounded-xl flex justify-between items-center">
       <Link href="/" className="cursor-pointer">
@@ -41,7 +42,17 @@ const Header = async () => {
           </Tab>
         ))}
       </div>
-      {session?.user ? <PreviewButton /> : <LoginButton />}
+
+      {status === "loading" ? (
+        <OvalLoadingSpinner width={40} height={40}></OvalLoadingSpinner>
+      ) : session?.user ? (
+        <div className="flex gap-2">
+          <PreviewButton />
+          <SignOutButton />
+        </div>
+      ) : (
+        <LoginButton />
+      )}
     </div>
   );
 };

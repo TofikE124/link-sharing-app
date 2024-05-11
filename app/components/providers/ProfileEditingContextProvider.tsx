@@ -19,12 +19,6 @@ import {
 } from "react-hook-form";
 import { z } from "zod";
 
-interface Props {
-  user: UserWithPlatforms;
-  handleSave: (data: User) => void;
-  children: ReactNode;
-}
-
 type editProfileType = z.infer<typeof EditProfileSchema>;
 
 interface ProfileEditingContextType {
@@ -50,13 +44,17 @@ export const ProfileEditingContext = createContext<ProfileEditingContextType>(
   {} as ProfileEditingContextType
 );
 
+interface Props {
+  user: UserWithPlatforms | null;
+  handleSave: (data: User) => void;
+  children: ReactNode | null;
+}
+
 const ProfileEditingContextProvider = ({
   handleSave,
   user,
   children,
 }: Props) => {
-  const { data: session, status } = useSession();
-
   const {
     register,
     control,
@@ -69,10 +67,10 @@ const ProfileEditingContextProvider = ({
   } = useForm<editProfileType>({
     resolver: zodResolver(EditProfileSchema),
     defaultValues: {
-      contactEmail: user.contactEmail || "",
-      firstName: user.firstName || "",
-      lastName: user.lastName || "",
-      profileImage: user.image || "",
+      contactEmail: user?.contactEmail || "",
+      firstName: user?.firstName || "",
+      lastName: user?.lastName || "",
+      profileImage: user?.image || "",
     },
   });
 

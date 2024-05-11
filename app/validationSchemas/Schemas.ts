@@ -21,3 +21,14 @@ const platformSchema = z.object({
 export const CreatePlatformSchema = z.object({
   platforms: z.array(platformSchema),
 });
+
+export const LoginSchema = z.object({
+  email: z.string().min(1, requiredMessage).email("Invalid email"),
+  password: z.string().min(1, requiredMessage).min(8, "Invalid password"),
+});
+
+export const SignUpSchema = z.object({
+  email: z.string().min(1, requiredMessage).email("Invalid email"),
+  password: z.string().min(1, requiredMessage).min(8, "Invalid password"),
+  repeatedPassword: z.string().min(1, requiredMessage),
+});

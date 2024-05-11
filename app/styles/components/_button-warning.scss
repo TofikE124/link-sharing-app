@@ -1,0 +1,27 @@
+@use "../abstracts/variables" as *;
+@use "../base/typography" as *;
+
+.button-warning {
+  @apply heading-s;
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  background-color: $RED;
+  color: $WHITE;
+  border-radius: 0.5rem;
+  border: 0;
+  cursor: pointer;
+
+  transition: background-color 250ms ease-out, box-shadow 250ms ease-out,
+    opacity 200ms;
+
+  &:hover:not(:disabled),
+  &.active:not(:disabled) {
+    background-color: $LIGHT-RED;
+    box-shadow: 0px 0px 32px 0px rgba(99, 60, 255, 0.25);
+  }
+
+  &:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+  }
+}

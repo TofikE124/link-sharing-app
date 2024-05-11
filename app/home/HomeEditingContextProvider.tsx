@@ -15,7 +15,7 @@ const HomeEditingContextProvider = ({ children }: PropsWithChildren) => {
       defaultPlatforms={user?.platforms || []}
     >
       <ProfileEditingContextProvider
-        user={user!}
+        user={user}
         handleSave={(data) => saveProfile(data)}
       >
         {children}

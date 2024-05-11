@@ -48,6 +48,9 @@ const UserProfileContextProvider = ({ children }: PropsWithChildren) => {
         .finally(() => {
           setLoading(false);
         });
+    } else {
+      setLoading(false);
+      setUser(null);
     }
   }, [session]);
 
@@ -59,6 +62,10 @@ const UserProfileContextProvider = ({ children }: PropsWithChildren) => {
         ...warningToastOptions,
         duration: 2500,
       });
+      return;
+    }
+    if (!user) {
+      toast.error("You must login first", warningToastOptions);
       return;
     }
     const savePromise = axios.patch(
@@ -87,6 +94,10 @@ const UserProfileContextProvider = ({ children }: PropsWithChildren) => {
         ...warningToastOptions,
         duration: 2500,
       });
+      return;
+    }
+    if (!user) {
+      toast.error("You must login first", { ...warningToastOptions });
       return;
     }
     const createPlatformsPromise = axios.post("/api/platform", data);
