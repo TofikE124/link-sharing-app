@@ -1,9 +1,18 @@
 .confirm-alert {
   opacity: 0;
   visibility: hidden;
-  transition: opacity 300ms;
+  transition: opacity 300ms, visibility 300ms;
+
+  .confirm-alert-dialog {
+    scale: 0;
+    transition: scale 300ms;
+  }
+
   &.shown {
     opacity: 1;
     visibility: visible;
+    .confirm-alert-dialog {
+      scale: 1;
+    }
   }
 }

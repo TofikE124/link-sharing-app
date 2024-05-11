@@ -62,11 +62,11 @@ export async function PATCH(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   const email = request.headers.get("email") || "";
-  const uniqueLink = request.headers.get("uniqueLink") || "";
+  const uniqueLinkId = request.headers.get("uniqueLinkId") || "";
 
-  if (uniqueLink) {
+  if (uniqueLinkId) {
     const user = await prisma.user.findUnique({
-      where: { uniqueLinkId: uniqueLink },
+      where: { uniqueLinkId: uniqueLinkId },
       select: {
         contactEmail: true,
         platforms: true,

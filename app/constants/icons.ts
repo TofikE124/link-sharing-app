@@ -25,6 +25,7 @@ export enum iconType {
   IMAGE_UPLOAD,
   LOGIN,
   LOGOUT,
+  CREATE,
 }
 
 export const iconMap: Record<iconType, icon> = {
@@ -59,5 +60,8 @@ export const iconMap: Record<iconType, icon> = {
   },
   [iconType.LOGOUT]: {
     URL: "/assets/images/icon-logout.svg",
+  },
+  [iconType.CREATE]: {
+    URL: "/assets/images/icon-create.svg",
   },
 };

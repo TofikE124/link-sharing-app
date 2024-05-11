@@ -3,11 +3,7 @@ import { ProfileEditingContext } from "../../components/providers/ProfileEditing
 import CloudinaryUpload from "@/app/components/CloudinaryUpload";
 
 const ProfilePicture = () => {
-  const {
-    onImageUpload,
-    profileImageURL: imageURL,
-    errors,
-  } = useContext(ProfileEditingContext);
+  const { onImageUpload, image, errors } = useContext(ProfileEditingContext);
   return (
     <div className="bg-light-grey p-5 rounded-xl mt-[60px]">
       <div className="flex items-center">
@@ -15,7 +11,7 @@ const ProfilePicture = () => {
         <div className="ml-auto mr-[24px]">
           <CloudinaryUpload
             onUpload={onImageUpload}
-            imageURL={imageURL}
+            imageURL={image}
           ></CloudinaryUpload>
         </div>
         <div className="w-[215px]">
@@ -24,7 +20,7 @@ const ProfilePicture = () => {
           </p>
         </div>
       </div>
-      <p className="text-red heading-s mt-2">{errors.profileImage?.message}</p>
+      <p className="text-red heading-s mt-2">{errors.image?.message}</p>
     </div>
   );
 };

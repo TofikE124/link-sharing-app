@@ -1,3 +1,4 @@
+import HomeEditingContextProvider from "../home/HomeEditingContextProvider";
 import UserProfileContextProvider from "../home/UserProfileContextProvider";
 import PreviewHeader from "./PreviewHeader";
 import PreviewProfile from "./PreviewProfile";
@@ -10,8 +11,10 @@ const page = ({ searchParams: { returnURL } }: Props) => {
   return (
     <div>
       <UserProfileContextProvider>
-        <PreviewHeader returnURL={returnURL}></PreviewHeader>
-        <PreviewProfile></PreviewProfile>
+        <HomeEditingContextProvider>
+          <PreviewHeader returnURL={returnURL}></PreviewHeader>
+          <PreviewProfile></PreviewProfile>
+        </HomeEditingContextProvider>
       </UserProfileContextProvider>
     </div>
   );

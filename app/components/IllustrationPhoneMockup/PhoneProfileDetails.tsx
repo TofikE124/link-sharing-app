@@ -1,5 +1,5 @@
 "use client";
-import { ViewProfileContext } from "@/app/preview/[uniqueLink]/ViewProfileContextProvider";
+import { ViewProfileContext } from "@/app/preview/[uniqueLinkId]/ViewProfileContextProvider";
 import Image from "next/image";
 import { useContext } from "react";
 import { ProfileEditingContext } from "../providers/ProfileEditingContextProvider";

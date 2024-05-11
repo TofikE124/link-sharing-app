@@ -1,7 +1,7 @@
 "use client";
 import PreviewLink from "@/app/components/PreviewLink";
 import { UserProfileContext } from "@/app/home/UserProfileContextProvider";
-import { ViewProfileContext } from "@/app/preview/[uniqueLink]/ViewProfileContextProvider";
+import { ViewProfileContext } from "@/app/preview/[uniqueLinkId]/ViewProfileContextProvider";
 import { useContext } from "react";
 import { PlatformEditingContext } from "../providers/PlatformEditingContextProvider";
 

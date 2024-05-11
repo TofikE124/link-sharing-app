@@ -6,7 +6,7 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 interface Props {
-  uniqieLink: string;
+  uniqueLinkId: string;
   children: ReactNode;
 }
 
@@ -19,10 +19,7 @@ export const ViewProfileContext = createContext<ViewPlatformContextType>(
   {} as ViewPlatformContextType
 );
 
-const ViewPlatformContextProvider = ({
-  uniqieLink: uniqueLink,
-  children,
-}: Props) => {
+const ViewProfileContextProvider = ({ uniqueLinkId, children }: Props) => {
   const [viewPlatformContextValue, setViewPlatformContextValue] =
     useState<ViewPlatformContextType>({
       isLoading: true,
@@ -30,7 +27,7 @@ const ViewPlatformContextProvider = ({
 
   useEffect(() => {
     axios
-      .get("/api/user", { headers: { uniqueLink } })
+      .get("/api/user", { headers: { uniqueLinkId } })
       .then((response) => {
         const user = response.data as User & { platforms: Platform[] };
         setViewPlatformContextValue({
@@ -50,4 +47,4 @@ const ViewPlatformContextProvider = ({
   );
 };
 
-export default ViewPlatformContextProvider;
+export default ViewProfileContextProvider;
