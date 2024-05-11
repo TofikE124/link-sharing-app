@@ -26,7 +26,7 @@ const PhoneProfileDetails = () => {
             className="rounded-full border-4 border-purple object-cover"
           />
         ) : (
-          <></>
+          <div className="w-[96px] h-[96px] rounded-full"></div>
         )}
       </div>
       <div className="w-[200px] mt-[14px] text-center flex flex-col gap-5 bg-pure-white">
