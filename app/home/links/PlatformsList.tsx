@@ -3,14 +3,14 @@ import { Reorder } from "framer-motion";
 import PlatformEditorItem from "./PlatformEditorItem";
 
 interface Props {
-  links: Platform[];
+  platforms: Platform[];
   handleReorder: (newLinks: Platform[]) => void;
 }
 
-const PlatformsList = ({ links, handleReorder }: Props) => {
+const PlatformsList = ({ platforms, handleReorder }: Props) => {
   return (
     <Reorder.Group
-      values={links}
+      values={platforms}
       onReorder={handleReorder}
       className="list-none p-0"
     >
@@ -18,11 +18,11 @@ const PlatformsList = ({ links, handleReorder }: Props) => {
         className="mt-6 flex flex-col gap-6
     "
       >
-        {links.map((link, index) => (
+        {platforms.map((platform, index) => (
           <PlatformEditorItem
-            link={link}
+            platform={platform}
             index={index}
-            key={link.id}
+            key={platform.id}
           ></PlatformEditorItem>
         ))}
       </div>

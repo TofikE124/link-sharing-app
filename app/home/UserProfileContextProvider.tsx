@@ -2,7 +2,7 @@
 import { User } from "@prisma/client";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import React, {
+import {
   createContext,
   Fragment,
   PropsWithChildren,
@@ -10,9 +10,9 @@ import React, {
   useState,
 } from "react";
 import toast from "react-hot-toast";
-import { warningToastOptions } from "../constants/styles";
 import { Platform } from "../constants/platforms";
-import { editProfileType } from "../components/providers/ProfileEditingContextProvider";
+import { warningToastOptions } from "../constants/styles";
+import { stat } from "fs";
 
 export type UserWithPlatforms = User & { platforms: Platform[] };
 
@@ -28,30 +28,48 @@ export const UserProfileContext = createContext<UserProfileContextType>(
 );
 
 const UserProfileContextProvider = ({ children }: PropsWithChildren) => {
-  const [isLoading, setLoading] = useState(true);
-  const [user, setUser] = useState<UserWithPlatforms | null>(null);
+  const [contextValue, setContextValue] = useState<UserProfileContextType>({
+    isLoading: true,
+    user: null,
+    savePlatforms: (platforms: Platform[]) => {
+      savePlatforms(platforms);
+    },
+    saveProfile: (data: User) => {
+      saveProfile(data);
+    },
+  });
+  const { user, isLoading } = contextValue;
   const [key, setKey] = useState(0);
 
   const { data: session, status } = useSession();
 
   // Intialization
   useEffect(() => {
+    if (status == "loading") return;
     if (session?.user) {
-      setLoading(true);
       axios
         .get("/api/user", { headers: { email: session.user.email } })
         .then((response) => {
-          setUser(response.data);
+          console.log(response.data);
+          setContextValue({
+            ...contextValue,
+            user: response.data,
+            isLoading: false,
+          });
         })
         .catch((err) => {
           toast.error("An error occured while getting your data");
-        })
-        .finally(() => {
-          setLoading(false);
+          setContextValue({
+            ...contextValue,
+            user: null,
+            isLoading: false,
+          });
         });
     } else {
-      setLoading(false);
-      setUser(null);
+      setContextValue({
+        ...contextValue,
+        isLoading: false,
+      });
     }
   }, [session]);
 
@@ -85,7 +103,7 @@ const UserProfileContextProvider = ({ children }: PropsWithChildren) => {
         success: "Saved Successfully",
       })
       .then((response) => {
-        setUser(response.data);
+        setContextValue({ ...contextValue, user: response.data });
         saveCountDown();
         setKey(key + 1);
       });
@@ -103,14 +121,21 @@ const UserProfileContextProvider = ({ children }: PropsWithChildren) => {
       toast.error("You must login first", { ...warningToastOptions });
       return;
     }
-    const createPlatformsPromise = axios.post("/api/platform", data);
+    const createPlatformsPromise = axios.post<Platform[]>(
+      "/api/platform",
+      data
+    );
     toast
       .promise(createPlatformsPromise, {
         error: "An error occured while saving",
         loading: "Saving...",
         success: "Saved successfully",
       })
-      .then(() => {
+      .then((response) => {
+        setContextValue({
+          ...contextValue,
+          user: { ...user, platforms: response.data },
+        });
         saveCountDown();
         setKey(key + 1);
       });

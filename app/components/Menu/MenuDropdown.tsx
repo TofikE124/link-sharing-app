@@ -19,13 +19,13 @@ export const MenuContext = createContext<MenuContextType>(
 
 interface Props {
   onChange: (platformType: PlatformType) => void;
-  link: Platform;
+  platform: Platform;
 }
 
-const MenuDropdown = ({ onChange, link }: Props) => {
+const MenuDropdown = ({ onChange, platform }: Props) => {
   const [active, setActive] = useState(false);
 
-  const selectedPlatform = platformMap[link.type];
+  const selectedPlatform = platformMap[platform.type];
   const { avilablePlatforms } = useContext(PlatformEditingContext);
 
   const menuRef = useRef(null);
@@ -69,9 +69,11 @@ const MenuDropdown = ({ onChange, link }: Props) => {
       ></DropdownToggle>
       <div className="menu-list-container absolute top-full mt-2 left-0 right-0 z-50">
         <MenuContext.Provider
-          value={{ menuItemClick, selectedPlatformType: link.type }}
+          value={{ menuItemClick, selectedPlatformType: platform.type }}
         >
-          <MenuList platforms={[link.type, ...avilablePlatforms]}></MenuList>
+          <MenuList
+            platforms={[platform.type, ...avilablePlatforms]}
+          ></MenuList>
         </MenuContext.Provider>
       </div>
     </div>

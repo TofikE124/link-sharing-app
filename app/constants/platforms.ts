@@ -15,6 +15,7 @@ export interface Platform {
   id: string;
   type: PlatformType;
   link: string;
+  index: number;
 }
 
 export const platformMap: Record<PlatformType, PreviewPlatform> = {

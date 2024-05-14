@@ -8,10 +8,10 @@ import ProfileDetailsLoadingSkeleton from "./ProfileDetailsLoadingSkeleton";
 import ProfilePicture from "./ProfilePicture";
 import ProfilePictureLoadingSkeleton from "./ProfilePictureLoadingSkeleton";
 
-const page = () => {
+const Page = () => {
   const { isLoading } = useContext(UserProfileContext);
-  if (isLoading) return <Loading />;
   const { handleSubmit, onSubmit, isDirty } = useContext(ProfileEditingContext);
+  if (isLoading) return <Loading />;
 
   return (
     <form
@@ -36,7 +36,10 @@ const page = () => {
         )}
       </div>
       <div className="mt-10 pt-6 border-borders border-0 border-t w-full lgmd:pb-6 sm:p-4">
-        <button disabled={!isDirty} className="button-primary flex items-center justify-center lgmd:w-[91px] sm:w-full ml-auto mr-6">
+        <button
+          disabled={!isDirty}
+          className="button-primary flex items-center justify-center lgmd:w-[91px] sm:w-full ml-auto mr-6"
+        >
           Save
         </button>
       </div>
@@ -44,4 +47,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

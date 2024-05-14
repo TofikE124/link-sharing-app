@@ -11,6 +11,7 @@ const PhoneProfileDetails = () => {
     ? profileEditingContext
     : viewProfileContext;
   const { user } = context ?? {};
+
   if (!user) return;
 
   const { firstName, lastName, contactEmail, image } = user;
@@ -30,7 +31,7 @@ const PhoneProfileDetails = () => {
         )}
       </div>
       <div className="w-[200px] mt-[14px] text-center flex flex-col gap-5 bg-pure-white">
-        <h3 className="text-dark-grey heading-s text-[18px]">
+        <h3 className="text-dark-grey heading-s text-[18px] text-nowrap overflow-ellipsis overflow-hidden">
           {firstName} {lastName}
         </h3>
       </div>

@@ -29,9 +29,8 @@ const ViewProfileContextProvider = ({ uniqueLinkId, children }: Props) => {
     axios
       .get("/api/user", { headers: { uniqueLinkId } })
       .then((response) => {
-        const user = response.data as User & { platforms: Platform[] };
         setViewPlatformContextValue({
-          user,
+          user: response.data,
           isLoading: false,
         });
       })

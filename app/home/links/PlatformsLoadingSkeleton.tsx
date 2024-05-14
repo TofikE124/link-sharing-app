@@ -1,6 +1,6 @@
 import LoadingSkeleton from "@/app/components/LoadingSkeleton";
 
-const LinksLoadingSkeleton = () => {
+const PlatformsLoadingSkeleton = () => {
   return (
     <div className="mt-6 flex flex-col gap-6">
       <LoadingSkeleton
@@ -31,4 +31,4 @@ const LinksLoadingSkeleton = () => {
   );
 };
 
-export default LinksLoadingSkeleton;
+export default PlatformsLoadingSkeleton;

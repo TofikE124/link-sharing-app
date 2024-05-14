@@ -17,7 +17,7 @@ interface Props {
   searchParams: { callbackUrl: string };
 }
 
-const page = ({ searchParams: { callbackUrl } }: Props) => {
+const Page = ({ searchParams: { callbackUrl } }: Props) => {
   const router = useRouter();
   const { data: session, status } = useSession();
   const {
@@ -121,7 +121,7 @@ const page = ({ searchParams: { callbackUrl } }: Props) => {
               <span>Login with Google</span>
             </button>
             <p className="body-m text-grey text-center">
-              Don't have an account ?{" "}
+              {"Don't have an account"} ?{" "}
               <Link
                 className="text-purple no-underline hover:underline sm:block"
                 href="/signup"
@@ -136,4 +136,4 @@ const page = ({ searchParams: { callbackUrl } }: Props) => {
   );
 };
 
-export default page;
+export default Page;

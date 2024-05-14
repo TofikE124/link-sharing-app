@@ -7,6 +7,7 @@ import PreviewButton from "./PreviewButton";
 import SignOutButton from "./SignOutButton";
 import { useSession } from "next-auth/react";
 import OvalLoadingSpinner from "../OvalLoadingSpinner";
+import Image from "next/image";
 
 const tabs = [
   {
@@ -26,13 +27,19 @@ const Header = () => {
   return (
     <div className="bg-pure-white p-6 rounded-xl flex justify-between items-center">
       <Link href="/" className="cursor-pointer">
-        <img
+        <Image
           src="/assets/images/logo-devlinks-large.svg"
+          alt="Logo devlinks"
           className="sm:hidden object-cover"
+          width={146}
+          height={32}
         />
-        <img
+        <Image
           src="/assets/images/logo-devlinks-small.svg"
           className="lgmd:hidden object-cover"
+          alt="Logo Devlinks"
+          width={32}
+          height={32}
         />
       </Link>
       <div className="flex items-center gap-4">

@@ -50,11 +50,12 @@ export async function PATCH(request: NextRequest) {
   if (!user)
     return NextResponse.json({ error: "User not found" }, { status: 404 });
 
-  const { firstName, lastName, contactEmail, profileImage } = body;
+  const { firstName, lastName, contactEmail, image } = body;
 
   const newUser = await prisma.user.update({
     where: { email },
-    data: { firstName, lastName, contactEmail, image: profileImage },
+    data: { firstName, lastName, contactEmail, image },
+    include: { platforms: true },
   });
 
   return NextResponse.json(newUser, { status: 201 });
@@ -69,7 +70,7 @@ export async function GET(request: NextRequest) {
       where: { uniqueLinkId: uniqueLinkId },
       select: {
         contactEmail: true,
-        platforms: true,
+        platforms: { orderBy: { index: "asc" } },
         firstName: true,
         lastName: true,
         image: true,
@@ -90,7 +91,7 @@ export async function GET(request: NextRequest) {
       );
     const user = await prisma.user.findUnique({
       where: { email },
-      include: { platforms: true },
+      include: { platforms: { orderBy: { index: "asc" } } },
     });
     if (!user)
       return NextResponse.json({ error: "User not found" }, { status: 404 });

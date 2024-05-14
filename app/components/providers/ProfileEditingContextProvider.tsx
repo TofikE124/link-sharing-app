@@ -3,7 +3,7 @@ import { UserWithPlatforms } from "@/app/home/UserProfileContextProvider";
 import { EditProfileSchema } from "@/app/validationSchemas/Schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { User } from "@prisma/client";
-import { createContext, ReactNode } from "react";
+import { createContext, ReactNode, useState } from "react";
 import {
   Control,
   FieldErrors,
@@ -83,7 +83,7 @@ const ProfileEditingContextProvider = ({
 
   // Profile Picture
   const onImageUpload = (url: string) => {
-    setValue("image", url);
+    setValue("image", url, { shouldDirty: true });
     clearErrors("image");
   };
 

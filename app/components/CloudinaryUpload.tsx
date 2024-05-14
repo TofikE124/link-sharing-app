@@ -37,8 +37,8 @@ const CloudinaryUpload = ({ onUpload = () => {}, imageURL }: Props) => {
         ],
         multiple: false,
         cropping: true,
-        maxImageWidth: 1024,
-        maxImageHeight: 1024,
+        maxImageWidth: 2048,
+        maxImageHeight: 2048,
         validateMaxWidthHeight: true,
         clientAllowedFormats: ["png", "jpg"],
         croppingValidateDimensions: false, // Disable cropping validation

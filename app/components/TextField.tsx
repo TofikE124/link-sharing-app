@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React, { ChangeEvent, forwardRef, InputHTMLAttributes } from "react";
 import SmallIcon from "./SmallIcon";
 import { iconMap, iconType } from "../constants/icons";
@@ -66,4 +65,5 @@ const TextField = forwardRef<HTMLInputElement, Props>(
   }
 );
 
+TextField.displayName = "TextField";
 export default TextField;

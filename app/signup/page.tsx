@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 
 type SignUpSchemaType = z.infer<typeof SignUpSchema>;
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const { data: session } = useSession();
   const {
@@ -122,4 +122,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

@@ -1,4 +1,4 @@
-import LinksLoadingSkeleton from "./LinksLoadingSkeleton";
+import PlatformsLoadingSkeleton from "./PlatformsLoadingSkeleton";
 
 const Loading = () => {
   return (
@@ -12,7 +12,7 @@ const Loading = () => {
         <button className="button-secondary mt-10" type="button">
           + Add new link
         </button>
-        <LinksLoadingSkeleton />
+        <PlatformsLoadingSkeleton />
       </div>
       <div className="mt-10 pt-6 border-borders border-0 border-t w-full lgmd:pb-6 sm:p-4">
         <button className="button-primary lgmd:w-[91px] sm:w-full block ml-auto mr-6">

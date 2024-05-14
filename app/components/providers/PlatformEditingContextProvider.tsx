@@ -86,7 +86,12 @@ const PlatformEditingContextProvider = ({
   const appendPlatform = () => {
     if (avilablePlatforms.length == 0) return;
     append(
-      { id: uuidv4(), link: "", type: avilablePlatforms[0] },
+      {
+        id: uuidv4(),
+        link: "",
+        type: avilablePlatforms[0],
+        index: platforms.length,
+      },
       { shouldFocus: false }
     );
   };
@@ -97,6 +102,8 @@ const PlatformEditingContextProvider = ({
 
   const handleReorder = (newPlatforms: Platform[]) => {
     const { indexA, indexB } = getSwapIndex(platforms, newPlatforms);
+    platforms[indexA].index = indexB;
+    platforms[indexB].index = indexA;
     swap(indexA, indexB);
   };
 
@@ -111,11 +118,6 @@ const PlatformEditingContextProvider = ({
     handleSave(data);
   };
 
-  // Avilable platforms
-  useEffect(() => {
-    updateAvliablePlatforms();
-  }, [watchAllPlatforms]);
-
   const updateAvliablePlatforms = () => {
     const takenPlatforms = [...platforms].map((field) => field.type);
     const newAvilablePlatforms = Object.values(PlatformType).filter(
@@ -123,6 +125,11 @@ const PlatformEditingContextProvider = ({
     );
     setAvilablePlatforms(newAvilablePlatforms);
   };
+
+  // Avilable platforms
+  useEffect(() => {
+    updateAvliablePlatforms();
+  }, [watchAllPlatforms]);
 
   // Context
   const linkEditingContextValue = {

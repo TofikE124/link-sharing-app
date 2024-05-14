@@ -6,14 +6,15 @@ import TextField from "../../components/TextField";
 import { iconType } from "../../constants/icons";
 import { PlatformEditingContext } from "../../components/providers/PlatformEditingContextProvider";
 import { PlatformType } from "@prisma/client";
+import Image from "next/image";
 
 interface Props {
-  link: Platform;
+  platform: Platform;
   index: number;
   controls: DragControls;
 }
 
-const PlatformEditor = ({ link, index, controls }: Props) => {
+const PlatformEditor = ({ platform, index, controls }: Props) => {
   const { handlePlatformChange, removePlatform, register, errors } = useContext(
     PlatformEditingContext
   );
@@ -26,10 +27,13 @@ const PlatformEditor = ({ link, index, controls }: Props) => {
           onPointerDown={(e) => controls.start(e)}
         >
           <div className="h-fit">
-            <img
+            <Image
               src="/assets/images/icon-drag-and-drop.svg"
+              alt="Icon drag"
               className="select-none"
               draggable={false}
+              width={12}
+              height={6}
             />
           </div>
           <p className="text-grey body-m font-bold">Link #{index + 1}</p>
@@ -47,7 +51,7 @@ const PlatformEditor = ({ link, index, controls }: Props) => {
           onChange={(platformType: PlatformType) =>
             handlePlatformChange(index, platformType)
           }
-          link={link}
+          platform={platform}
         ></MenuDropdown>
       </div>
       <div className="flex flex-col gap-1">

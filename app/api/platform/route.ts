@@ -1,5 +1,5 @@
-import { Platform } from "@/app/constants/platforms";
 import { CreatePlatformSchema as createPlatformSchema } from "@/app/validationSchemas/Schemas";
+import prisma from "@/prisma/client";
 import { Prisma } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
@@ -59,5 +59,5 @@ export async function POST(request: NextRequest) {
   const result = await prisma?.platform.createMany({
     data: platforms,
   });
-  return NextResponse.json(result, { status: 200 });
+  return NextResponse.json(platforms, { status: 200 });
 }

@@ -16,7 +16,7 @@ const ProfilePicture = () => {
         </div>
         <div className="w-[215px]">
           <p className="text-grey body-s mt-2">
-            Image must be below 1024x1024px. Use PNG or JPG format.
+            Image must be below 2048x2048px. Use PNG or JPG format.
           </p>
         </div>
       </div>

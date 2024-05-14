@@ -10,9 +10,8 @@ interface Props {
 
 const MenuLink = ({ platformType }: Props) => {
   const platform = platformMap[platformType];
-  if (!platform) return;
-
   const { menuItemClick, selectedPlatformType } = useContext(MenuContext);
+  if (!platform) return;
 
   const selected = selectedPlatformType == platformType;
 

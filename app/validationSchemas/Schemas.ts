@@ -16,6 +16,7 @@ const platformSchema = z.object({
   id: z.string(),
   type: z.enum(PlatformTypeValues),
   link: z.string().min(1, requiredMessage).url("Invalid url"),
+  index: z.number().min(0, "Invalid number"),
 });
 
 export const CreatePlatformSchema = z.object({

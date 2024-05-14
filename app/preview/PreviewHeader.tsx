@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import ShareLinkButton from "./ShareLinkButton";
+import prisma from "@/prisma/client";
 
 interface Props {
   returnURL?: string;

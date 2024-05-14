@@ -7,8 +7,8 @@ import { UserProfileContext } from "./UserProfileContextProvider";
 const HomeEditingContextProvider = ({ children }: PropsWithChildren) => {
   const { user, saveProfile, savePlatforms, isLoading } =
     useContext(UserProfileContext);
-  if (isLoading) return <>{children}</>;
 
+  if (isLoading) return <>{children}</>;
   return (
     <PlatformEditingContextProvider
       handleSave={(data) => savePlatforms(data)}
