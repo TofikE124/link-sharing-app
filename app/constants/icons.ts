@@ -26,6 +26,7 @@ export enum iconType {
   LOGIN,
   LOGOUT,
   CREATE,
+  WARNING,
 }
 
 export const iconMap: Record<iconType, icon> = {
@@ -63,5 +64,8 @@ export const iconMap: Record<iconType, icon> = {
   },
   [iconType.CREATE]: {
     URL: "/assets/images/icon-create.svg",
+  },
+  [iconType.WARNING]: {
+    URL: "/assets/images/icon-warning.svg",
   },
 };

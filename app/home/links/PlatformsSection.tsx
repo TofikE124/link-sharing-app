@@ -44,7 +44,7 @@ const PlatformsSection = () => {
       </div>
       <div className="mt-10 pt-6 border-borders border-0 border-t w-full lgmd:pb-6 sm:p-4">
         <button
-          disabled={platforms.length == 0 || !isDirty}
+          disabled={!isDirty}
           className="button-primary lgmd:w-[91px] sm:w-full block ml-auto mr-6"
         >
           Save

@@ -28,7 +28,7 @@ const ProfileDetails = () => {
         </div>
       </div>
       <div className="flex justify-between items-center w-full sm:flex-col sm:items-start">
-        <p className="body-m text-grey">Email</p>
+        <p className="body-m text-grey">Email*</p>
         <div className="lgmd:max-w-[500px] sm:max-w-[350px] w-full">
           <TextField
             {...register("contactEmail")}
