@@ -5,11 +5,10 @@ import SmallIcon from "@/app/components/SmallIcon";
 import { iconMap, iconType } from "@/app/constants/icons";
 
 interface Props {
-  returnURL?: string;
   isOwn?: boolean;
 }
 
-const ViewHeader = async ({ returnURL, isOwn = true }: Props) => {
+const ViewHeader = async ({ isOwn = true }: Props) => {
   return (
     <div
       className={`${

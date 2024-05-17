@@ -16,7 +16,8 @@ const PreviewHeader = async ({ returnURL, isOwn = true }: Props) => {
     where: { email: session.user.email || "" },
   });
 
-  const uniqueLink = "http://localhost:3000/preview/" + user?.uniqueLinkId;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const uniqueLink = `${baseUrl}/preview/${user?.uniqueLinkId}`;
   return (
     <div
       className={`${
