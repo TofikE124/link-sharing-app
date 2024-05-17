@@ -15,8 +15,14 @@
   font-weight: 400;
 }
 .body-s {
-  font-size: 0.75rem; //16px
+  font-size: 0.75rem; //12px
   font-weight: 400;
+}
+
+@media (max-width: $breakpoint-medium) {
+  .heading-m {
+    font-size: 1.5rem;
+  }
 }
 
 .text-grey {
