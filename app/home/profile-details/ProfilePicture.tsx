@@ -6,9 +6,9 @@ const ProfilePicture = () => {
   const { onImageUpload, image, errors } = useContext(ProfileEditingContext);
   return (
     <div className="bg-light-grey p-5 rounded-xl mt-[60px]">
-      <div className="flex items-center">
+      <div className="flex items-center sm:flex-col sm:items-start gap-4">
         <p className="text-grey body-m mt-2">Profile picture</p>
-        <div className="ml-auto mr-[24px]">
+        <div className="lgmd:ml-auto lgmd:mr-[24px]">
           <CloudinaryUpload
             onUpload={onImageUpload}
             imageURL={image}

@@ -14,7 +14,7 @@ const PhoneProfileDetails = () => {
 
   if (!user) return;
 
-  const { firstName, lastName, contactEmail, image } = user;
+  const { firstName, lastName = "", contactEmail, image } = user;
   return (
     <div className="h-[158px] flex flex-col items-center">
       <div className="overflow-hidden rounded-full">
@@ -31,7 +31,7 @@ const PhoneProfileDetails = () => {
         )}
       </div>
       <div className="w-[200px] mt-[14px] text-center flex flex-col gap-5 bg-pure-white">
-        <h3 className="text-dark-grey heading-s text-[18px] text-nowrap overflow-ellipsis overflow-hidden">
+        <h3 className="text-dark-grey min-h-[27px] heading-s text-[18px] text-nowrap overflow-ellipsis overflow-hidden">
           {firstName} {lastName}
         </h3>
       </div>
