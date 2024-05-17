@@ -1,5 +1,5 @@
 import { Platform } from "@/app/constants/platforms";
-import { DragControls } from "framer-motion";
+import { motion, DragControls } from "framer-motion";
 import { useContext } from "react";
 import MenuDropdown from "../../components/Menu/MenuDropdown";
 import TextField from "../../components/TextField";
@@ -23,7 +23,7 @@ const PlatformEditor = ({ platform, index, controls }: Props) => {
     <div className="bg-light-grey rounded-xl p-5 flex flex-col gap-3 select-none">
       <div className="flex justify-between">
         <div
-          className="flex gap-2 items-center p-2 cursor-grab"
+          className="flex gap-2 items-center p-2 cursor-grab touch-none"
           onPointerDown={(e) => controls.start(e)}
         >
           <div className="h-fit">
