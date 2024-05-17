@@ -71,66 +71,61 @@ const Page = ({ searchParams: { callbackUrl } }: Props) => {
   };
 
   return (
-    <div className="w-screen h-screen flex items-center justify-center">
-      <div>
-        <Link href="/">
-          <img
-            src="assets/images/logo-devlinks-large.svg"
-            className="mx-auto"
-          />
-        </Link>
-        <div className="bg-pure-white p-10 mt-14 rounded-2xl w-[450px]">
-          <h2 className="heading-m text-dark-grey">Login</h2>
-          <p className="body-m text-grey mt-2">
-            Add your details below to get back into the app
-          </p>
+    <div className="w-screen h-screen flex flex-col items-center justify-center">
+      <Link href="/">
+        <img src="assets/images/logo-devlinks-large.svg" className="mx-auto" />
+      </Link>
+      <div className="bg-pure-white p-10 mt-14 rounded-2xl lgmd:w-[450px] sm:w-[80%] sm:max-w-[400px] mx-8">
+        <h2 className="heading-m text-dark-grey">Login</h2>
+        <p className="body-m text-grey mt-2">
+          Add your details below to get back into the app
+        </p>
 
-          <form
-            className="mt-10 flex flex-col gap-6"
-            onSubmit={handleSubmit(onSubmit)}
+        <form
+          className="mt-10 flex flex-col gap-6"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <div className="flex flex-col gap-1">
+            <p className="body-s text-dark-grey">Email adress</p>
+            <TextField
+              {...register("email")}
+              iconType={iconType.EMAIL}
+              placeholder="e.g alex@amil.com"
+              errorMessage={errors.email?.message}
+            ></TextField>
+          </div>
+          <div className="flex flex-col gap-1">
+            <p className="body-s text-dark-grey">Password</p>
+            <TextField
+              {...register("password")}
+              iconType={iconType.PASSWORD}
+              placeholder="Enter your password"
+              type="password"
+              errorMessage={errors.password?.message}
+            ></TextField>
+          </div>
+          <button className="button-primary">Login</button>
+          <button
+            onClick={loginWithGoogle}
+            type="button"
+            className="button-secondary flex items-center justify-center gap-3"
           >
-            <div className="flex flex-col gap-1">
-              <p className="body-s text-dark-grey">Email adress</p>
-              <TextField
-                {...register("email")}
-                iconType={iconType.EMAIL}
-                placeholder="e.g alex@amil.com"
-                errorMessage={errors.email?.message}
-              ></TextField>
-            </div>
-            <div className="flex flex-col gap-1">
-              <p className="body-s text-dark-grey">Password</p>
-              <TextField
-                {...register("password")}
-                iconType={iconType.PASSWORD}
-                placeholder="Enter your password"
-                type="password"
-                errorMessage={errors.password?.message}
-              ></TextField>
-            </div>
-            <button className="button-primary">Login</button>
-            <button
-              onClick={loginWithGoogle}
-              type="button"
-              className="button-secondary flex items-center justify-center gap-3"
+            <img
+              src="/assets/images/icon-google.png"
+              className="w-[30px] h-[30px]"
+            />
+            <span>Login with Google</span>
+          </button>
+          <p className="body-m text-grey text-center">
+            {"Don't have an account"} ?{" "}
+            <Link
+              className="text-purple no-underline hover:underline sm:block"
+              href="/signup"
             >
-              <img
-                src="/assets/images/icon-google.png"
-                className="w-[30px] h-[30px]"
-              />
-              <span>Login with Google</span>
-            </button>
-            <p className="body-m text-grey text-center">
-              {"Don't have an account"} ?{" "}
-              <Link
-                className="text-purple no-underline hover:underline sm:block"
-                href="/signup"
-              >
-                Create account
-              </Link>
-            </p>
-          </form>
-        </div>
+              Create account
+            </Link>
+          </p>
+        </form>
       </div>
     </div>
   );
