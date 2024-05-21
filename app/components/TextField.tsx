@@ -1,6 +1,7 @@
 import React, { ChangeEvent, forwardRef, InputHTMLAttributes } from "react";
 import SmallIcon from "./SmallIcon";
 import { iconMap, iconType } from "../constants/icons";
+import { number } from "zod";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
@@ -32,7 +33,7 @@ const TextField = forwardRef<HTMLInputElement, Props>(
     }: Props,
     ref
   ) => {
-    const Icon = iconType ? iconMap[iconType] : null;
+    const Icon = typeof iconType == "number" ? iconMap[iconType] : null;
 
     return (
       <div

@@ -50,7 +50,6 @@ const UserProfileContextProvider = ({ children }: PropsWithChildren) => {
       axios
         .get("/api/user", { headers: { email: session.user.email } })
         .then((response) => {
-          console.log(response.data);
           setContextValue({
             ...contextValue,
             user: response.data,
