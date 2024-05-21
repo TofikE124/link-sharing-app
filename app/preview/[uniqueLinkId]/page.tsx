@@ -1,13 +1,8 @@
-import { useContext } from "react";
-import PreviewHeader from "../PreviewHeader";
+import { Metadata } from "next";
 import PreviewProfile from "../PreviewProfile";
 import ViewHeader from "./ViewHeader";
-import ViewProfileContextProvider, {
-  ViewProfileContext,
-} from "./ViewProfileContextProvider";
-import ProfileIncomplete from "../ProfileIncomplete";
-import { Metadata, ResolvingMetadata } from "next";
-import { delay } from "framer-motion";
+import ViewProfileContextProvider from "./ViewProfileContextProvider";
+import prisma from "@/prisma/client";
 
 interface Props {
   params: { uniqueLinkId: string };
@@ -28,7 +23,6 @@ export async function generateMetadata(
   { params: { uniqueLinkId } }: { params: { uniqueLinkId: string } },
   parent: any
 ): Promise<Metadata> {
-  // Set initial temporary metadata
   try {
     const user = await prisma?.user.findUnique({
       where: { uniqueLinkId },
@@ -47,6 +41,7 @@ export async function generateMetadata(
       };
     }
   } catch (error) {
+    console.log(error);
     return {
       title: "Error",
       description: "An error occurred while fetching the user profile.",

@@ -15,7 +15,6 @@ const PreviewProfile = () => {
     : userProfileContext;
   const { isLoading, user } = context;
 
-  console.log(user);
   const inComplete =
     !user?.contactEmail ||
     !user.firstName ||
