@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import HomeEditingContextProvider from "../home/HomeEditingContextProvider";
 import UserProfileContextProvider from "../home/UserProfileContextProvider";
 import PreviewHeader from "./PreviewHeader";
@@ -18,6 +19,11 @@ const page = ({ searchParams: { returnURL } }: Props) => {
       </UserProfileContextProvider>
     </div>
   );
+};
+
+export const metadata: Metadata = {
+  title: "Preview Profile",
+  description: "Preview Profile Page",
 };
 
 export default page;

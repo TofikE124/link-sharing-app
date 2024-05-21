@@ -1,12 +1,13 @@
-"use client";
-import { useContext } from "react";
-import { UserProfileContext } from "../UserProfileContextProvider";
-import Loading from "./loading";
-import PlatformsSection from "./PlatformsSection";
+import { Metadata } from "next";
+import LinksPageContent from "./LinksPageContent";
 
 const Page = () => {
-  const { isLoading } = useContext(UserProfileContext);
-  return isLoading ? <Loading /> : <PlatformsSection></PlatformsSection>;
+  return <LinksPageContent />;
+};
+
+export const metadata: Metadata = {
+  title: "Links",
+  description: "Links page",
 };
 
 export default Page;
